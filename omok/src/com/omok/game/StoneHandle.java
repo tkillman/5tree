@@ -12,23 +12,25 @@ public class StoneHandle {
 	static final int[] LEFT_DOWN = { 1, -1 };
 	static final int[] LEFT = { 0, -1 };
 	static final int[] LEFT_UP = { -1, -1 };
-	static boolean a = true;
+	static boolean pointCheck = true;	// 탐색할때 방향이 변하는지 파악하는 변수
+	static boolean winlose = true;
 	public static void main(String[] args) {
 
 		int[][] board = new int[19][19]; // 바둑판 생성  
 
-		int bbbbbbb;
 		int[] point = new int[2];
 		int[] checkPoint = new int[2];
 		int[] cnt = { 1 };// 턴 카운트
 
-		while (winLose()) {
+		while (winlose) {
 			stone(point, board, cnt);
-			compareUpDown(point, checkPoint, board);
-			compareRightLeft(point, checkPoint, board);
-			compareDiagonalR(point, checkPoint, board);
-			compareDiagonalL(point, checkPoint, board);
+			compareStone(point, checkPoint, board);
 		}
+		if(turn(cnt) == 1)
+			System.out.println("백돌 승리");
+		else
+			System.out.println("흑돌 승리");
+		
 	}
 
 	public static void printGame(int[][] arr) { // 바둑판 출력
@@ -52,6 +54,7 @@ public class StoneHandle {
 		// else
 		printGame(board);
 		cnt[0]++; // 턴 증가
+		
 	}
 
 	public static int isCheck(int[] point, int[][] board) {
@@ -75,11 +78,6 @@ public class StoneHandle {
 		else
 			return cnt[0] % 2; // 백 차례
 	}
-
-	public static boolean winLose() {
-		return true;
-		// return false;
-	}
 	public static void clonePoint(int[] point, int[] checkPoint, int[][] board) {	// 포인트 좌표를 체크 포인트에 복사
 
 		for (int i = 0; i < 2; i++) {
@@ -92,20 +90,20 @@ public class StoneHandle {
 		int cnt = 1;
 
 		clonePoint(point, checkPoint, board);// 체크포인트 복사
-		while(a){
-			a = pointUP(point, checkPoint, board);
-			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && a) {
+		while(pointCheck){
+			pointCheck = pointUP(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
 				cnt++;
 			}
 			else 
 				break;
 		} // 위로 같은 돌인지 체크
 
-		a = true;
+		pointCheck = true;
 		clonePoint(point, checkPoint, board);// 체크포인트 복사
-		while(a){
-			a = pointDOWN(point, checkPoint, board);
-			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && a) {
+		while(pointCheck){
+			pointCheck = pointDOWN(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
 				cnt++;
 			}
 			else 
@@ -113,7 +111,7 @@ public class StoneHandle {
 		} // 아래로 같은 돌인지 체크
 		clonePoint(point, checkPoint, board);// 체크포인트 복사
 		if (cnt == 5)
-			System.out.println(" 승리 ");
+			winlose = false;
 		else
 			cnt = 1;
 	}
@@ -144,20 +142,20 @@ public class StoneHandle {
 		int cnt = 1;
 
 		clonePoint(point, checkPoint, board);// 체크포인트 복사
-		while(a){
-			a = pointRight(point, checkPoint, board);
-			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && a) {
+		while(pointCheck){
+			pointCheck = pointRight(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
 				cnt++;
 			}
 			else 
 				break;
 		} // 우로 같은 돌인지 체크
 
-		a = true;
+		pointCheck = true;
 		clonePoint(point, checkPoint, board);// 체크포인트 복사
-		while(a){
-			a = pointLeft(point, checkPoint, board);
-			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && a) {
+		while(pointCheck){
+			pointCheck = pointLeft(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
 				cnt++;
 			}
 			else 
@@ -165,7 +163,7 @@ public class StoneHandle {
 		} // 좌로 같은 돌인지 체크
 		clonePoint(point, checkPoint, board);// 체크포인트 복사
 		if (cnt == 5)
-			System.out.println(" 승리 ");
+			winlose = false;
 		else
 			cnt = 1;
 	}
@@ -195,20 +193,20 @@ public class StoneHandle {
 		int cnt = 1;
 
 		clonePoint(point, checkPoint, board);// 체크포인트 복사
-		while(a){
-			a = pointRightUp(point, checkPoint, board);
-			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && a) {
+		while(pointCheck){
+			pointCheck = pointRightUp(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
 				cnt++;
 			}
 			else 
 				break;
 		} // 우위로 같은 돌인지 체크
 
-		a = true;
+		pointCheck = true;
 		clonePoint(point, checkPoint, board);// 체크포인트 복사
-		while(a){
-			a = pointLeftDown(point, checkPoint, board);
-			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && a) {
+		while(pointCheck){
+			pointCheck = pointLeftDown(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
 				cnt++;
 			}
 			else 
@@ -216,7 +214,7 @@ public class StoneHandle {
 		} // 좌아래로 같은 돌인지 체크
 		clonePoint(point, checkPoint, board);// 체크포인트 복사
 		if (cnt == 5)
-			System.out.println(" 승리 ");
+			winlose = false;
 		else
 			cnt = 1;
 	}
@@ -247,20 +245,20 @@ public class StoneHandle {
 		int cnt = 1;
 
 		clonePoint(point, checkPoint, board);// 체크포인트 복사
-		while(a){
-			a = pointRightDown(point, checkPoint, board);
-			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && a) {
+		while(pointCheck){
+			pointCheck = pointRightDown(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
 				cnt++;
 			}
 			else 
 				break;
 		} // 우위로 같은 돌인지 체크
 
-		a = true;
+		pointCheck = true;
 		clonePoint(point, checkPoint, board);// 체크포인트 복사
-		while(a){
-			a = pointLeftUp(point, checkPoint, board);
-			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && a) {
+		while(pointCheck){
+			pointCheck = pointLeftUp(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
 				cnt++;
 			}
 			else 
@@ -268,7 +266,7 @@ public class StoneHandle {
 		} // 좌아래로 같은 돌인지 체크
 		clonePoint(point, checkPoint, board);// 체크포인트 복사
 		if (cnt == 5)
-			System.out.println(" 승리 ");
+			winlose = false;
 		else
 			cnt = 1;
 	}
@@ -293,5 +291,10 @@ public class StoneHandle {
 		}
 		return true;
 	}
-
+	public static void compareStone(int[] point, int[] checkPoint, int[][] board) {
+		compareUpDown(point, checkPoint, board);
+		compareRightLeft(point, checkPoint, board);
+		compareDiagonalR(point, checkPoint, board);
+		compareDiagonalL(point, checkPoint, board);
+	}
 }
