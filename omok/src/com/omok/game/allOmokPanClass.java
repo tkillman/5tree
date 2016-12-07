@@ -47,7 +47,7 @@ public class allOmokPanClass {
 
 		//선긋기
 		short Count = 0;      
-		for(short a=0; a<PanLineCount; a++){         
+		for(short a = 0; a<PanLineCount; a++){         
 			gc.setStroke(Color.BLACK);
 			gc.setLineWidth(2);
 			gc.strokeLine(horLine+Count, horLine, horLine+Count, verLine); //가로줄 그어주기. x1, y1, x2, y2 
@@ -94,7 +94,12 @@ public class allOmokPanClass {
 	//가까운 축 돌 놓는 식
 	final int nearPoint(double xy){
 		int pointXY = (int)(Math.round((xy-20)/30)*30+20);
+		
 		System.out.println("xy좌표 : " + pointXY);
+		return pointXY;
+	}
+	final int nearPointArrayValue(double xy){
+		int pointXY = (int)(Math.round((xy-20)/30));
 		return pointXY;
 	}
 }
