@@ -1,4 +1,4 @@
-package com.omok.game;
+package omokLogin;
 
 import java.net.URL;
 import java.util.ResourceBundle;

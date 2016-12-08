@@ -1,4 +1,4 @@
-package com.omok.game;
+package omokLogin;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

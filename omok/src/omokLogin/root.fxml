@@ -13,31 +13,37 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="omokLogin.rootController">
    <children>
       <HBox prefHeight="260.0" prefWidth="300.0" />
+      
       <HBox prefHeight="65.0" prefWidth="300.0">
          <children>
-            <TextField prefHeight="65.0" prefWidth="280.0" promptText="아이디">
+            <TextField fx:id="id" prefHeight="65.0" prefWidth="280.0" promptText="아이디">
                <font>
                   <Font size="15.0" />
                </font></TextField>
          </children>
+         
          <VBox.margin>
             <Insets />
          </VBox.margin>
+         
          <padding>
             <Insets bottom="7.0" left="12.0" right="12.0" top="12.0" />
          </padding>
       </HBox>
-      <HBox prefHeight="65.0" prefWidth="300.0">
+      
+      <HBox prefHeight="65.0" prefWidth="300.0">      
          <padding>
             <Insets bottom="12.0" left="12.0" right="12.0" top="7.0" />
          </padding>
+         
          <children>
-            <PasswordField prefHeight="65.0" prefWidth="280.0" promptText="비밀번호">
+            <PasswordField fx:id="pw" prefHeight="65.0" prefWidth="280.0" promptText="비밀번호">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></PasswordField>
-         </children>
+         </children>         
       </HBox>
+      
       <HBox prefHeight="65.0" prefWidth="300.0">
          <children>
             <Button fx:id="btn1" mnemonicParsing="false" prefHeight="35.0" prefWidth="130.0" text="회원가입">

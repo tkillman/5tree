@@ -108,16 +108,7 @@ public class EntryPoint extends Application{
 			if (startBtn.getText().equals("게임 시작")) {
 				startBtn.setText("게임 기권");
 			}
-		});
-
-		//버튼 누른 이벤트 설정
-		/*startBtn.setOnAction(new EventHandler<ActionEvent>(){
-			public void handle(ActionEvent event){   
-				if (startBtn.getText().equals("게임 시작")) {
-					startBtn.setText("게임 기권");
-				} 
-			}
-		});*/		
+		});	
 
 		//마우스 이벤트 핸들러
 		omokPan.setOnMouseClicked((event) -> {         
@@ -139,11 +130,10 @@ public class EntryPoint extends Application{
 					}else if(allPan.whiteBool){																	//   돌 그리는 메소드!
 						allPan.stone(allPan.nearPoint(event.getX()), allPan.nearPoint(event.getY()), stoneGC);  //
 					}
-					sh.stone(point);	// 콘솔창에 돌에대한 데이터를 입력해주는 메소드
+					sh.stone(point); // 콘솔창에 돌에대한 데이터를 입력해주는 메소드
 				}
 			}                  
-		}
-				);	
+		});	
 
 		//화면 제목 설정
 		stage.setTitle("오목게임");
@@ -160,7 +150,7 @@ public class EntryPoint extends Application{
 		// TODO Auto-generated method stub
 		//메인 함수에서 자바fx를 띄운다.
 		launch();      
-		//		StoneHandle.gameStart();
+		//StoneHandle.gameStart();
 	}
 
 }

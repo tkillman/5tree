@@ -98,6 +98,7 @@ public class allOmokPanClass {
 		System.out.println("xyÁÂÇ¥ : " + pointXY);
 		return pointXY;
 	}
+	
 	final int nearPointArrayValue(double xy){
 		int pointXY = (int)(Math.round((xy-20)/30));
 		return pointXY;
