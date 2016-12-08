@@ -18,15 +18,28 @@ import javafx.stage.Stage;
 public class joinUsController implements Initializable{
 	@FXML private Button btn1;
 	@FXML private Button btn2;
-	@FXML private TextField id;
-	@FXML private PasswordField pw;
+	@FXML private TextField joinId;
+	@FXML private PasswordField joinPw;
+	@FXML private TextField joinNick;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		//
-		
-		
+		//가입하는 버튼
+		btn1.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {						
+				//db로 id랑 패스워드랑 닉네임 넘겨주기
+				String strJoinId = joinId.getText();
+				String strJoinPw = joinPw.getText();
+				String strJoinNick = joinNick.getText();
+				
+				//db연동 파일 호출하기
+				DBMemberJoin dbJoin = new DBMemberJoin();
+				dbJoin.DBJoin(strJoinId, strJoinPw, strJoinNick);	
+				
+				System.out.println("가입하였습니다.");
+			}
+		});				
 		
 		//초기화면으로 돌아가는 버튼
 		btn2.setOnAction(new EventHandler<ActionEvent>() {

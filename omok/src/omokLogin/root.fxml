@@ -16,7 +16,7 @@
       
       <HBox prefHeight="65.0" prefWidth="300.0">
          <children>
-            <TextField fx:id="id" prefHeight="65.0" prefWidth="280.0" promptText="아이디">
+            <TextField fx:id="logId" prefHeight="65.0" prefWidth="280.0" promptText="아이디">
                <font>
                   <Font size="15.0" />
                </font></TextField>
@@ -37,7 +37,7 @@
          </padding>
          
          <children>
-            <PasswordField fx:id="pw" prefHeight="65.0" prefWidth="280.0" promptText="비밀번호">
+            <PasswordField fx:id="logPw" prefHeight="65.0" prefWidth="280.0" promptText="비밀번호">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></PasswordField>
