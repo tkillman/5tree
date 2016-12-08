@@ -57,7 +57,7 @@ public class StoneHandle {
 //		point[0] = input.nextInt();
 //		point[1] = input.nextInt();
 
-		if (isCheck(point, board) == 0 && turn(cnt) == 1)
+		if (turn(cnt) == 1)
 			board[point[0]][point[1]] = 1;
 		else if (turn(cnt) == 0)
 			board[point[0]][point[1]] = 2;
@@ -80,9 +80,22 @@ public class StoneHandle {
 		
 	}
 
-	public static int isCheck(int[] point, int[][] board) {
+//	public static int isCheck(int[] point, int[][] board) {
+//
+//		switch (board[point[0]][point[1]]) {
+//
+//		case 1:
+//			return 1; // Èæµ¹
+//		case 2:
+//			return 2; // ¹éµ¹
+//
+//		default:
+//			return 0;
+//		}
+//	}
+	public static int isCheck(int y, int x) {
 
-		switch (board[point[0]][point[1]]) {
+		switch (board[y][x]) {
 
 		case 1:
 			return 1; // Èæµ¹

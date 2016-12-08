@@ -20,17 +20,16 @@ import javafx.scene.control.TextField;
 
 //게임 
 public class EntryPoint extends Application{
-	
-	int [] point = new int[2];
-	StoneHandle sh = new StoneHandle();
-	
+
+	int [] point = new int[2];	// 마우스 클릭 좌표값 저장 배열
+
+	StoneHandle sh = new StoneHandle();	//돌 조작 알고리즘 생성자
+
 	//오목판과 관련된 클래스 정리
 	allOmokPanClass allPan = new allOmokPanClass();
-	
+
 	//사람 입장 관련된 클래스 정리
 	peopleEnterClass allpeople = new peopleEnterClass();
-	
-	StoneHandle st = new StoneHandle();
 
 	//게임 메인 생성자
 	public EntryPoint(){
@@ -47,7 +46,7 @@ public class EntryPoint extends Application{
 	@Override
 	public void start(Stage stage) throws Exception{
 		System.out.println("start 메소드 콜");
-		
+
 		short secondCount = 0;
 
 		//닻. AnchorPane이 컨테이너 8개 중 하나임.
@@ -110,7 +109,7 @@ public class EntryPoint extends Application{
 				startBtn.setText("게임 기권");
 			}
 		});
-		
+
 		//버튼 누른 이벤트 설정
 		/*startBtn.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event){   
@@ -119,7 +118,7 @@ public class EntryPoint extends Application{
 				} 
 			}
 		});*/		
-		
+
 		//마우스 이벤트 핸들러
 		omokPan.setOnMouseClicked((event) -> {         
 			System.out.println(event.getX()+ ", "+event.getY());  
@@ -130,24 +129,27 @@ public class EntryPoint extends Application{
 
 			//오목 판 완전 가쪽에는 돌을 못놓도록 막아주어야 한다.
 			if(!(event.getX() < 8 || event.getX() > 572 || event.getY() < 8 || event.getY() > 572)){
-				if(allPan.blackBool){ //처음은 무조건 흑돌 먼저
-					allPan.stone(allPan.nearPoint(event.getX()), allPan.nearPoint(event.getY()), stoneGC);
-					point[0] = allPan.nearPointArrayValue(event.getY());
-					point[1] = allPan.nearPointArrayValue(event.getX());
-				}else if(allPan.whiteBool){
-					allPan.stone(allPan.nearPoint(event.getX()), allPan.nearPoint(event.getY()), stoneGC);
-					point[0] = allPan.nearPointArrayValue(event.getY());
-					point[1] = allPan.nearPointArrayValue(event.getX());
+
+				point[0] = allPan.nearPointArrayValue(event.getY());
+				point[1] = allPan.nearPointArrayValue(event.getX());
+
+				if(sh.isCheck(point[0], point[1]) == 0){
+					if(allPan.blackBool){ //처음은 무조건 흑돌 먼저													//
+						allPan.stone(allPan.nearPoint(event.getX()), allPan.nearPoint(event.getY()), stoneGC);  //
+					}else if(allPan.whiteBool){																	//   돌 그리는 메소드!
+						allPan.stone(allPan.nearPoint(event.getX()), allPan.nearPoint(event.getY()), stoneGC);  //
+					}
+					sh.stone(point);	// 콘솔창에 돌에대한 데이터를 입력해주는 메소드
 				}
-				sh.stone(point);
 			}                  
-		});	
+		}
+				);	
 
 		//화면 제목 설정
 		stage.setTitle("오목게임");
 		stage.show();
 	}
-	
+
 
 	@Override
 	public void stop(){
@@ -158,7 +160,7 @@ public class EntryPoint extends Application{
 		// TODO Auto-generated method stub
 		//메인 함수에서 자바fx를 띄운다.
 		launch();      
-//		StoneHandle.gameStart();
+		//		StoneHandle.gameStart();
 	}
 
 }
