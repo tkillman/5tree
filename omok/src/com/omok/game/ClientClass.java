@@ -9,34 +9,8 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-class ThreadRead extends Thread{
-   Socket connSock = null;
-   
-   ThreadRead(Socket connSock){
-      this.connSock = connSock;
-   }
-   
-   public void run(){
-      try {
-         //받기
-         InputStream receiver = connSock.getInputStream();// 소켓에서 데이터를 가져오려면 꼭 필요함.
-         BufferedReader br = new BufferedReader(new InputStreamReader(receiver));
-         
-         //메시지 읽기
-         String readMsg = null;         
-         while(true){ 
-        	readMsg = br.readLine();
-        	System.out.println(readMsg); // 버퍼값 출력
-         }          
-      } catch (Exception e) {
-    	  System.out.println("error : " + e);
-      }      
-   }   
-}
-
-
-//--------------------------------------------------------------------------------
-public class GameClientClass {
+//클라이언트 접속하고 메시지 보내기
+public class ClientClass {
 
 	public static void main(String[] args){
 		try {
@@ -60,7 +34,7 @@ public class GameClientClass {
 			
 			//while문 돌려서 계속 쓸 수 있게 해준다.
 			while(true){
-				ThreadRead read = new ThreadRead(connSock);
+				ClientThreadRead read = new ClientThreadRead(connSock);
 				read.start();
 
 				//run이 돌면서 쓰레드가 실행된다.
