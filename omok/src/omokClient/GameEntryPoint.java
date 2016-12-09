@@ -44,7 +44,7 @@ public class GameEntryPoint extends Application{
 	}	
 	
 	//채팅창 
-	TextArea infoArea = null;
+	static TextArea infoArea = null;
 	public void chatting(){
 		infoArea = new TextArea();
 		infoArea.setPrefSize(190, 270); //채팅창. 가로, 세로
@@ -53,7 +53,7 @@ public class GameEntryPoint extends Application{
 	}	
 	
 	//채팅창 쓰는 곳
-	TextField chatInput = null;
+	static TextField chatInput = null;
 	public void chattingInput(){
 		chatInput = new TextField();
 		chatInput.setPrefSize(190, 30);
@@ -165,12 +165,16 @@ public class GameEntryPoint extends Application{
 		System.out.println("stop 메소드 콜");
 	}
 
-	public static void gameMain(Socket connSock) {		
-		//메인 함수에서 자바fx를 띄운다.
-		launch();
-		
+	public static void gameMain(Socket connSock) {	
+
 		//채팅 스레드 돌림
-		ClientThreadSend cts = new ClientThreadSend(connSock, new GameEntryPoint());
+		ClientThreadSend cts = new ClientThreadSend(connSock, infoArea, chatInput);
+		cts.start();
+		System.out.println("채팅 스레드를 돌립니다.");
+
+		//메인 함수에서 자바fx를 띄운다.
+		System.out.println("GUI를 돌립니다.");
+		launch();		
 
 		//StoneHandle.gameStart();
 	}

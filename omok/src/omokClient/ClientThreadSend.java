@@ -7,17 +7,21 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ClientThreadSend {
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+
+public class ClientThreadSend extends Thread{
 	Socket connSock;
-	GameEntryPoint gep;
+	TextArea infoArea;
+	TextField chatInput;
 	
-	ClientThreadSend(Socket connSock, GameEntryPoint gep) {
+	ClientThreadSend(Socket connSock, TextArea infoArea, TextField chatInput) {
 		this.connSock = connSock;
-		this.gep = gep;
+		this.infoArea = infoArea;
+		this.chatInput = chatInput;
 	}
 	
-	void clientSend(){	
-		
+	public void run(){			
 		try {
 			//메시지 보내기
 			OutputStream sender = connSock.getOutputStream(); //소켓으로 데이터를 보내려면 꼭 필요함.
@@ -31,12 +35,12 @@ public class ClientThreadSend {
 			
 			//while문 돌려서 계속 쓸 수 있게 해준다.
 			while(true){
-				ClientThreadRead read = new ClientThreadRead(connSock, gep);
+				ClientThreadRead read = new ClientThreadRead(connSock, infoArea);
 				read.start();
 
 				//run이 돌면서 쓰레드가 실행된다.
 				sendMsg = keyboard.readLine(); 
-				gep.chatInput.setText(sendMsg);	
+				//chatInput.setText(sendMsg);	
 				System.out.println("보내기");
 				
 				pw.println(sendMsg);

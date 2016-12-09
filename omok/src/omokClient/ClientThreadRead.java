@@ -5,14 +5,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+import javafx.scene.control.TextArea;
+
 //소켓 연결하고 메시지 읽는 스레드
 public class ClientThreadRead extends Thread{
-	GameEntryPoint gep = null;
-	Socket connSock = null;
+	TextArea infoArea;
+	Socket connSock;
 
-	ClientThreadRead(Socket connSock, GameEntryPoint gep){
+	ClientThreadRead(Socket connSock, TextArea infoArea){
 		this.connSock = connSock;
-		this.gep = gep;
+		this.infoArea = infoArea;
 	}
 
 	public void run(){
@@ -25,9 +27,9 @@ public class ClientThreadRead extends Thread{
 			String readMsg = null;         
 			while(true){ 
 				readMsg = br.readLine();
-				gep.infoArea.getText();	
+				//infoArea.getText();	
 				System.out.println("받기");
-				//System.out.println(readMsg); // 버퍼값 출력
+				System.out.println(readMsg); // 버퍼값 출력
 			}          
 		} catch (Exception e) {
 			
