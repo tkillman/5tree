@@ -27,8 +27,7 @@ public class rootController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		//회원가입 버튼
-		btn1.setOnAction(new EventHandler<ActionEvent>() {
-			
+		btn1.setOnAction(new EventHandler<ActionEvent>() {			
 			@Override
 			public void handle(ActionEvent event) {
 				try{
@@ -55,7 +54,7 @@ public class rootController implements Initializable{
 				DBLoginCheck dbLogin = new DBLoginCheck();
 				dbLogin.DBlogin(strLogId, strLogPw);								
 				
-				System.out.println("로그인 성공하였습니다.");
+				
 			}
 		});	
 		

@@ -2,11 +2,12 @@ package omokLogin;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DBLoginCheck {
 
-	public static void DBlogin(String id, String pw) {
+	public static void DBlogin(String logId, String logPw) {
 		// TODO Auto-generated method stub
 
 		try {			
@@ -26,15 +27,27 @@ public class DBLoginCheck {
 			Statement st = con.createStatement();
 			
 			//4. st를 이용해서 쿼리 작성
-			String sqlID = "SELECT * FROM memberJoin WHERE id = '"+id+"'";
-			String sqlPW = "SELECT * FROM memberJoin WHERE pw = '"+pw+"'";
+			String sql = "SELECT * FROM memberJoin";
 			
-			if(id.equals(sqlID)){
-				System.out.println("아이디 맞습니다.");
-			}
+			//5. 실제 프로그램 실행
+			ResultSet resultSQL = st.executeQuery(sql);
+			System.out.println("오라클에서 꺼내왔습니다.");
 			
-			if(pw.equals(sqlPW)){
-				System.out.println("비밀번호 맞습니다.");
+			//6. select해온 결과를 뽑아냄
+			String getID = null;
+			String getPW = null;
+			while(resultSQL.next()){ 				
+				getID = resultSQL.getString("id");
+				getPW = resultSQL.getString("pw");					
+			}	
+			
+			//로그인 확인 조건문
+			if(!(logId.equals(getID))){
+				System.out.println("아이디를 다시 입력해주세요.");
+			}else if(!(logPw.equals(getPW))){
+				System.out.println("비밀번호를 다시 입력해주세요.");
+			}else if(logId.equals(getID) && logPw.equals(getPW)){
+				System.out.println("로그인 성공하였습니다.");
 			}
 			
 		} catch (Exception e) {

@@ -37,7 +37,7 @@ public class joinUsController implements Initializable{
 				DBMemberJoin dbJoin = new DBMemberJoin();
 				dbJoin.DBJoin(strJoinId, strJoinPw, strJoinNick);	
 				
-				System.out.println("가입하였습니다.");
+				
 			}
 		});				
 		
