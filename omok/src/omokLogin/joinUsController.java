@@ -36,8 +36,6 @@ public class joinUsController implements Initializable{
 				//db연동 파일 호출하기
 				DBMemberJoin dbJoin = new DBMemberJoin();
 				dbJoin.DBJoin(strJoinId, strJoinPw, strJoinNick);	
-				
-				
 			}
 		});				
 		

@@ -1,6 +1,6 @@
-package com.omok.game;
+package omokClient;
 
-public class WinAlg {
+public class GameWinAlg {
 	
 	static final int[] UP = { -1, 0 };
 	static final int[] RIGHT_UP = { -1, 1 };
@@ -18,7 +18,7 @@ public class WinAlg {
 	
 	static boolean pointCheck = true;	// 탐색할때 방향이 변하는지 파악하는 변수
 	
-	public WinAlg(int[] point, int[] checkPoint,	int[][] board){
+	public GameWinAlg(int[] point, int[] checkPoint,	int[][] board){
 		this.point = point;		// 바둑돌을 놓는 좌표를 저장하는 배열
 		this.checkPoint = checkPoint;	// 주변돌의 좌표를 넣어주는 배열
 		this.board = board; // 바둑판 생성  		

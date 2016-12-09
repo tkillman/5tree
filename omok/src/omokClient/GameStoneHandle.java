@@ -1,8 +1,8 @@
-package com.omok.game;
+package omokClient;
 
 import java.util.Scanner;
 
-public class StoneHandle {
+public class GameStoneHandle {
 	
 	static boolean winlose = false;	// 승패를 판단하는 변수
 	
@@ -66,7 +66,7 @@ public class StoneHandle {
 		
 		cnt[0]++; // 턴 증가
 		
-		WinAlg wa = new WinAlg(point, checkPoint, board);
+		GameWinAlg wa = new GameWinAlg(point, checkPoint, board);
 		
 	
 		winlose = wa.compareStone(point, checkPoint, board);

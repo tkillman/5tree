@@ -1,4 +1,4 @@
-package com.omok.game;
+package omokClient;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package com.omok.game;
+package omokServer;
 
 import java.io.BufferedReader;
 import java.io.IOException;

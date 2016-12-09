@@ -1,4 +1,4 @@
-package com.omok.game;
+package omokServer;
 
 import java.net.ServerSocket;
 import java.net.Socket;

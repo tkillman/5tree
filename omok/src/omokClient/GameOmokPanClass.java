@@ -1,13 +1,13 @@
-package com.omok.game;
+package omokClient;
 
 import java.util.ArrayList;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class allOmokPanClass {
+public class GameOmokPanClass {
 	//맞물리는 부분 좌표 저장
-	ArrayList<LineCrossPoint> lineCrossArray = new ArrayList<LineCrossPoint>();
+	ArrayList<GameLineCrossPoint> lineCrossArray = new ArrayList<GameLineCrossPoint>();
 
 	//검은 돌, 흰 돌
 	boolean blackBool = true;
@@ -28,7 +28,7 @@ public class allOmokPanClass {
 		for(int a=0; a<PanLineCount; a++){      
 			plusHorLine = 0;
 			for(int b=0; b<PanLineCount; b++){                        
-				lineCrossArray.add(new LineCrossPoint(horLine+plusHorLine, horLine+plusVerLine));
+				lineCrossArray.add(new GameLineCrossPoint(horLine+plusHorLine, horLine+plusVerLine));
 				plusHorLine += lineBetweenCount;
 			}         
 			plusVerLine += lineBetweenCount;

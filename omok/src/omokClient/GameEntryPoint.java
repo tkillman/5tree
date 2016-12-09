@@ -1,4 +1,4 @@
-package com.omok.game;
+package omokClient;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,20 +19,20 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 //게임 
-public class EntryPoint extends Application{
+public class GameEntryPoint extends Application{
 
 	int [] point = new int[2];	// 마우스 클릭 좌표값 저장 배열
 
-	StoneHandle sh = new StoneHandle();	//돌 조작 알고리즘 생성자
+	GameStoneHandle sh = new GameStoneHandle();	//돌 조작 알고리즘 생성자
 
 	//오목판과 관련된 클래스 정리
-	allOmokPanClass allPan = new allOmokPanClass();
+	GameOmokPanClass allPan = new GameOmokPanClass();
 
 	//사람 입장 관련된 클래스 정리
-	peopleEnterClass allpeople = new peopleEnterClass();
+	GamepeopleEnterClass allpeople = new GamepeopleEnterClass();
 
 	//게임 메인 생성자
-	public EntryPoint(){
+	public GameEntryPoint(){
 		System.out.println("AppMain 생성자 콜");
 	}
 
