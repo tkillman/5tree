@@ -7,10 +7,12 @@ import java.net.Socket;
 
 //소켓 연결하고 메시지 읽는 스레드
 public class ClientThreadRead extends Thread{
+	GameEntryPoint gep = null;
 	Socket connSock = null;
 
-	ClientThreadRead(Socket connSock){
+	ClientThreadRead(Socket connSock, GameEntryPoint gep){
 		this.connSock = connSock;
+		this.gep = gep;
 	}
 
 	public void run(){
@@ -23,9 +25,12 @@ public class ClientThreadRead extends Thread{
 			String readMsg = null;         
 			while(true){ 
 				readMsg = br.readLine();
-				System.out.println(readMsg); // 버퍼값 출력
+				gep.infoArea.getText();	
+				System.out.println("받기");
+				//System.out.println(readMsg); // 버퍼값 출력
 			}          
 		} catch (Exception e) {
+			
 			System.out.println("error : " + e);
 		}      
 	}   

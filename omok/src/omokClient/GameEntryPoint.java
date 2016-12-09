@@ -1,5 +1,6 @@
 package omokClient;
 
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -40,8 +41,26 @@ public class GameEntryPoint extends Application{
 	@Override
 	public void init(){
 		System.out.println("init 메소드 콜");
-	}	 
-
+	}	
+	
+	//채팅창 
+	TextArea infoArea = null;
+	public void chatting(){
+		infoArea = new TextArea();
+		infoArea.setPrefSize(190, 270); //채팅창. 가로, 세로
+		infoArea.setLayoutX(620); //창 위치 x값
+		infoArea.setLayoutY(270); //창 위치 y값
+	}	
+	
+	//채팅창 쓰는 곳
+	TextField chatInput = null;
+	public void chattingInput(){
+		chatInput = new TextField();
+		chatInput.setPrefSize(190, 30);
+		chatInput.setLayoutX(620);
+		chatInput.setLayoutY(545);
+	}	
+	
 	//start 호출
 	@Override
 	public void start(Stage stage) throws Exception{
@@ -86,14 +105,14 @@ public class GameEntryPoint extends Application{
 		peopleEnter.setLayoutX(620); //시작 x축
 		peopleEnter.setLayoutY(58); //시작 y축
 		root.getChildren().add(peopleEnter);
-
-		//게임 채팅창 같은거....
-		TextArea infoArea = new TextArea();
-		infoArea.setPrefSize(190, 300); //채팅창. 가로, 세로
-		infoArea.setLayoutX(620); //창 위치 x값
-		infoArea.setLayoutY(275); //창 위치 y값
+		
+		//게임 채팅창 같은거....	
+		chatting();
 		root.getChildren().add(infoArea);   
-		infoArea.setText("▶은영님 입장하셨습니다.");
+		
+		//게임 채팅 쓰는 칸....
+		chattingInput();
+		root.getChildren().add(chatInput);   
 
 		//게임시작 버튼을 만들어 준다.         
 		Button startBtn = new Button();
@@ -146,10 +165,13 @@ public class GameEntryPoint extends Application{
 		System.out.println("stop 메소드 콜");
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void gameMain(Socket connSock) {		
 		//메인 함수에서 자바fx를 띄운다.
-		launch();      
+		launch();
+		
+		//채팅 스레드 돌림
+		ClientThreadSend cts = new ClientThreadSend(connSock, new GameEntryPoint());
+
 		//StoneHandle.gameStart();
 	}
 

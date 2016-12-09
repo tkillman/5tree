@@ -16,7 +16,7 @@ public class DBMemberJoin {
 			System.out.println("드라이버 로딩하였습니다.");
 
 			//2.
-			String url = "jdbc:oracle:thin:@127.0.0.1:1521:xe";
+			String url = "jdbc:oracle:thin:@192.168.20.25:1521:xe";
 			String username = "sys as sysdba"; //오라클 로그인 아이디 (잊으면 큰일남)
 			String password = "jey1234"; //오라클 로그인 비밀번호
 			Connection con = DriverManager.getConnection(url, username, password);
@@ -32,6 +32,19 @@ public class DBMemberJoin {
 
 			//5. 실제 프로그램 실행
 			st.executeUpdate(sql);	
+
+			if(joinId.equals(null)){
+				System.out.println("아이디를 입력해주세요.");
+			}
+			
+			if(joinPw.equals(null)){
+				System.out.println("비밀번호를 입력해주세요.");
+			}
+			
+			if(joinNick.equals(null)){
+				System.out.println("닉네임을 입력해주세요.");
+			}
+			
 			System.out.println("오라클에 저장되었습니다.");
 			System.out.println("가입하였습니다.");
 			
