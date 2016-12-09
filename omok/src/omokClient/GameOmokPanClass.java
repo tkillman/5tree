@@ -69,7 +69,7 @@ public class GameOmokPanClass {
 			whiteBool = true;
 			blackBool = false;
 
-			//Èò µ¹ ³õ±â
+		//Èò µ¹ ³õ±â
 		}else if(whiteBool == true){
 			gc.setFill(Color.WHITE);  
 			blackBool = true;

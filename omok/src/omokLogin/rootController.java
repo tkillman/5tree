@@ -35,6 +35,7 @@ public class rootController implements Initializable{
 					Scene scene = new Scene(joinus);
 					Stage primaryStage = (Stage)btn1.getScene().getWindow();
 					primaryStage.setScene(scene);
+	
 				}catch(Exception e){
 					e.printStackTrace();
 				}

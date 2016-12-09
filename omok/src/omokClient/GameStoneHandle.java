@@ -33,11 +33,7 @@ public class GameStoneHandle {
 //		else
 //			System.out.println("Èæµ¹ ½Â¸®");
 	}
-	
-	
-	
-	
-	
+		
 	
 
 	public static void printGame(int[][] arr) { // ¹ÙµÏÆÇ Ãâ·Â
@@ -93,6 +89,7 @@ public class GameStoneHandle {
 //			return 0;
 //		}
 //	}
+	
 	public static int isCheck(int y, int x) {
 
 		switch (board[y][x]) {

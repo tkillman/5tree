@@ -25,8 +25,6 @@ public class GameWinAlg {
 	}
 	
 	
-	
-	
 	public static void clonePoint(int[] point, int[] checkPoint, int[][] board) {	// 포인트 좌표를 체크 포인트에 복사
 
 		for (int i = 0; i < 2; i++) {

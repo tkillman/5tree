@@ -58,27 +58,5 @@ public class joinUsController implements Initializable{
 			}
 		});
 		
-		btn1.setOnAction(new EventHandler<ActionEvent>() {
-			
-			
-			@Override
-			public void handle(ActionEvent event) {
-				
-				try{
-					Parent root = FXMLLoader.load(getClass().getResource("root.fxml"));
-					Scene scene = new Scene(root);
-					Stage PrimaryStage = (Stage)btn1.getScene().getWindow();
-					PrimaryStage.setScene(scene);
-				
-					}catch(Exception e){
-					e.printStackTrace();
-				}
-				
-			}
-			
-			
-		});
-		
 	}
-
 }
