@@ -18,21 +18,16 @@ public class ClientThreadRead extends Thread{
 	}
 
 	public void run(){
-		try {
-			//받기
-			InputStream receiver = connSock.getInputStream();// 소켓에서 데이터를 가져오려면 꼭 필요함.
-			BufferedReader br = new BufferedReader(new InputStreamReader(receiver));
-
-			//메시지 읽기
-			String readMsg = null;         
-			while(true){ 
-				readMsg = br.readLine();
-				//infoArea.getText();	
-				System.out.println("받기");
-				System.out.println(readMsg); // 버퍼값 출력
+		try {			
+			while(true){ 				
+				InputStream receiver = connSock.getInputStream();// 소켓에서 데이터를 가져오려면 꼭 필요함.
+				byte []bt = new byte[256];
+				int size = receiver.read(bt);
+				String readMsg = new String (bt, 0, size, "UTF-8");				
+				infoArea.setText(infoArea.getText()+"\n"+"상대방▶ "+readMsg);					
 			}          
-		} catch (Exception e) {
 			
+		} catch (Exception e) {			
 			System.out.println("error : " + e);
 		}      
 	}   

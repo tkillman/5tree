@@ -1,5 +1,11 @@
 package omokClient;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,9 +24,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 
 //게임 
 public class GameEntryPoint extends Application{
+	Socket connSock = null;
 
 	int [] point = new int[2];	// 마우스 클릭 좌표값 저장 배열
 
@@ -43,29 +51,11 @@ public class GameEntryPoint extends Application{
 		System.out.println("init 메소드 콜");
 	}	
 	
-	//채팅창 
-	static TextArea infoArea = null;
-	public void chatting(){
-		infoArea = new TextArea();
-		infoArea.setPrefSize(190, 270); //채팅창. 가로, 세로
-		infoArea.setLayoutX(620); //창 위치 x값
-		infoArea.setLayoutY(270); //창 위치 y값
-	}	
-	
-	//채팅창 쓰는 곳
-	static TextField chatInput = null;
-	public void chattingInput(){
-		chatInput = new TextField();
-		chatInput.setPrefSize(190, 30);
-		chatInput.setLayoutX(620);
-		chatInput.setLayoutY(545);
-	}	
-	
 	//start 호출
 	@Override
 	public void start(Stage stage) throws Exception{
 		System.out.println("start 메소드 콜");
-
+		
 		short secondCount = 0;
 
 		//닻. AnchorPane이 컨테이너 8개 중 하나임.
@@ -107,11 +97,17 @@ public class GameEntryPoint extends Application{
 		root.getChildren().add(peopleEnter);
 		
 		//게임 채팅창 같은거....	
-		chatting();
+		TextArea infoArea = new TextArea();
+		infoArea.setPrefSize(190, 270); //채팅창. 가로, 세로
+		infoArea.setLayoutX(620); //창 위치 x값
+		infoArea.setLayoutY(270); //창 위치 y값
 		root.getChildren().add(infoArea);   
 		
 		//게임 채팅 쓰는 칸....
-		chattingInput();
+		TextField chatInput = new TextField();
+		chatInput.setPrefSize(190, 30);
+		chatInput.setLayoutX(620);
+		chatInput.setLayoutY(545);
 		root.getChildren().add(chatInput);   
 
 		//게임시작 버튼을 만들어 준다.         
@@ -121,11 +117,12 @@ public class GameEntryPoint extends Application{
 		startBtn.setLayoutX(620); //버튼 위치 x값
 		startBtn.setLayoutY(590); //버튼 위치 y값
 		root.getChildren().add(startBtn);   
-
+		
 		//버튼 누른 이벤트 설정
 		startBtn.setOnAction((event) -> {
 			if (startBtn.getText().equals("게임 시작")) {
 				startBtn.setText("게임 기권");
+				
 			}
 		});	
 
@@ -153,6 +150,43 @@ public class GameEntryPoint extends Application{
 				}
 			}                  
 		});	
+		
+		
+		//--------------------------------------------
+		//서버 접속 소켓 생성
+		try {
+			//서버에 접속할 때 사용할 소켓 생성
+			connSock = new Socket(); 
+			System.out.println("클라이언트 소켓을 생성하였습니다.");
+
+			InetSocketAddress connAddr = new InetSocketAddress("127.0.0.1", 1818);
+			connSock.connect(connAddr); // 위에서 결정한 주소로 연결 
+			System.out.println("서버에 접속하였습니다.");
+
+			ClientThreadRead read = new ClientThreadRead(connSock, infoArea);
+			read.start();
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}			
+		
+		//채팅창 엔터치면~
+		chatInput.setOnKeyPressed((event) -> {
+			//서버에 보내는 것.
+			if(event.getCode()==KeyCode.ENTER){
+				try {				
+					byte []bt = chatInput.getText().getBytes("UTF-8");
+					OutputStream sender = connSock.getOutputStream();
+					sender.write(bt);
+					System.out.println("엔터계속 치고있따.");
+					
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+				
+				chatInput.clear();				
+			}
+		});		
 
 		//화면 제목 설정
 		stage.setTitle("오목게임");
@@ -165,12 +199,7 @@ public class GameEntryPoint extends Application{
 		System.out.println("stop 메소드 콜");
 	}
 
-	public static void gameMain(Socket connSock) {	
-
-		//채팅 스레드 돌림
-		ClientThreadSend cts = new ClientThreadSend(connSock, infoArea, chatInput);
-		cts.start();
-		System.out.println("채팅 스레드를 돌립니다.");
+	public void gameMain() {	
 
 		//메인 함수에서 자바fx를 띄운다.
 		System.out.println("GUI를 돌립니다.");

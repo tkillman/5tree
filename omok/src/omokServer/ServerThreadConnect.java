@@ -7,7 +7,7 @@ import java.util.ArrayList;
 //클라이언트 들어오면 연결해주는 스레드
 public class ServerThreadConnect extends Thread{
 	//소켓 저장하는 list
-	ArrayList<Socket> clientInfo = new ArrayList<Socket>();
+	ArrayList<ServerClientInfo> clientInfo = new ArrayList<ServerClientInfo>();
 	ServerSocket servSock = null;
 
 	ServerThreadConnect(ServerSocket servSock){
@@ -22,7 +22,7 @@ public class ServerThreadConnect extends Thread{
 				System.out.println("클라이언트가 접속하였습니다.");
 
 				//들어온 클라이언트 관리하는 리스트에 저장한다.			
-				clientInfo.add(cliSock);				
+				clientInfo.add(new ServerClientInfo(cliSock));				
 
 				//스레드 콜
 				ServerThreadUser user = new ServerThreadUser(cliSock, clientInfo);
