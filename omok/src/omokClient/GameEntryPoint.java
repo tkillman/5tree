@@ -28,18 +28,23 @@ import javafx.scene.input.KeyCode;
 
 //게임 
 public class GameEntryPoint extends Application{
-	Socket connSock = null;
-
-	int [] point = new int[2];	// 마우스 클릭 좌표값 저장 배열
-
-	GameStoneHandle sh = new GameStoneHandle();	//돌 조작 알고리즘 생성자
-
-	//오목판과 관련된 클래스 정리
-	GameOmokPanClass allPan = new GameOmokPanClass();
-
-	//사람 입장 관련된 클래스 정리
-	GamepeopleEnterClass allpeople = new GamepeopleEnterClass();
-
+	private Socket connSock = null;
+	private int[] point = new int[2];
+	private GameStoneHandle sh = new GameStoneHandle();
+	private GameOmokPanClass allPan = new GameOmokPanClass();
+	private GamepeopleEnterClass allpeople = new GamepeopleEnterClass();
+//	Socket connSock = null;
+//
+//	int [] point = new int[2];	// 마우스 클릭 좌표값 저장 배열
+//
+//	GameStoneHandle sh = new GameStoneHandle();	//돌 조작 알고리즘 생성자
+//
+//	//오목판과 관련된 클래스 정리
+//	GameOmokPanClass allPan = new GameOmokPanClass();
+//
+//	//사람 입장 관련된 클래스 정리
+//	GamepeopleEnterClass allpeople = new GamepeopleEnterClass();
+	private GameWinAlg algorithm = new GameWinAlg();
 	//게임 메인 생성자
 	public GameEntryPoint(){
 		System.out.println("AppMain 생성자 콜");
@@ -140,13 +145,17 @@ public class GameEntryPoint extends Application{
 				point[0] = allPan.nearPointArrayValue(event.getY());
 				point[1] = allPan.nearPointArrayValue(event.getX());
 
-				if(sh.isCheck(point[0], point[1]) == 0){
+				if(sh.checkStoneExist(point[0], point[1]) == false){
 					if(allPan.blackBool){ //처음은 무조건 흑돌 먼저													//
 						allPan.stone(allPan.nearPoint(event.getX()), allPan.nearPoint(event.getY()), stoneGC);  //
 					}else if(allPan.whiteBool){																	//   돌 그리는 메소드!
 						allPan.stone(allPan.nearPoint(event.getX()), allPan.nearPoint(event.getY()), stoneGC);  //
 					}
-					sh.stone(point); // 콘솔창에 돌에대한 데이터를 입력해주는 메소드
+					sh.putStoneOnBoard(point); // 콘솔창에 돌에대한 데이터를 입력해주는 메소드
+				}
+				if(algorithm.compareStone(point, sh.getBoard())){
+					sh.clearBoard();
+					System.out.println("clean board is call");//
 				}
 			}                  
 		});	
