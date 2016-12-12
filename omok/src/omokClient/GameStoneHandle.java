@@ -90,7 +90,7 @@ public class GameStoneHandle {
 //		}
 //	}
 	
-	public static int isCheck(int y, int x) {
+	public int isCheck(int y, int x) {
 
 		switch (board[y][x]) {
 

@@ -1,8 +1,6 @@
 package omokClient;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.Socket;
 
 import javafx.scene.control.TextArea;
@@ -24,7 +22,14 @@ public class ClientThreadRead extends Thread{
 				byte []bt = new byte[256];
 				int size = receiver.read(bt);
 				String readMsg = new String (bt, 0, size, "UTF-8");				
-				infoArea.setText(infoArea.getText()+"상대방▶ "+readMsg+"\n");					
+				
+				if(readMsg.startsWith("chat:")){
+					readMsg = readMsg.substring(5, readMsg.length());
+					infoArea.setText(infoArea.getText()+readMsg+"\n");
+					}
+				else if(readMsg.startsWith("point:")){
+					infoArea.setText(infoArea.getText()+"\n"+"상대방▶ "+readMsg);
+				}
 			}          
 			
 		} catch (Exception e) {			

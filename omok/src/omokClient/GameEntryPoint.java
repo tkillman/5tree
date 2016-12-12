@@ -1,37 +1,28 @@
 package omokClient;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Iterator;
 
-import javafx.application.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.stage.*;
+import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 //게임 
 public class GameEntryPoint extends Application{
 	Socket connSock = null;
 
+	final String chatStart = "chat:";
+	final String pointStart = "point:";
 	int [] point = new int[2];	// 마우스 클릭 좌표값 저장 배열
-
 	GameStoneHandle sh = new GameStoneHandle();	//돌 조작 알고리즘 생성자
 
 	//오목판과 관련된 클래스 정리
@@ -139,8 +130,16 @@ public class GameEntryPoint extends Application{
 
 				point[0] = allPan.nearPointArrayValue(event.getY());
 				point[1] = allPan.nearPointArrayValue(event.getX());
-
 				if(sh.isCheck(point[0], point[1]) == 0){
+					try {
+						String xyPoint = "point:"+String.valueOf(point[0])+","+String.valueOf(point[1]);
+						byte[] bt = xyPoint.getBytes("UTF-8");
+						OutputStream sender = connSock.getOutputStream();
+						sender.write(bt);
+
+					} catch (Exception e) {
+						System.out.println(e);
+					}  
 					if(allPan.blackBool){ //처음은 무조건 흑돌 먼저													//
 						allPan.stone(allPan.nearPoint(event.getX()), allPan.nearPoint(event.getY()), stoneGC);  //
 					}else if(allPan.whiteBool){																	//   돌 그리는 메소드!
@@ -175,7 +174,7 @@ public class GameEntryPoint extends Application{
 			//서버에 보내는 것.
 			if(event.getCode()==KeyCode.ENTER){
 				try {				
-					byte []bt = chatInput.getText().getBytes("UTF-8");
+					byte []bt = chatStart.concat(chatInput.getText()).getBytes("UTF-8");
 					OutputStream sender = connSock.getOutputStream();
 					sender.write(bt);
 					System.out.println("엔터계속 치고있따.");
@@ -186,7 +185,21 @@ public class GameEntryPoint extends Application{
 				
 				chatInput.clear();				
 			}
-		});		
+		});
+//		omokPan.setOnMouseClicked((event) -> {
+//			if(!(event.getX() < 8 || event.getX() > 572 || event.getY() < 8 || event.getY() > 572)){
+//				try {
+//					String xyPoint = "point:"+String.valueOf(point[0])+","+String.valueOf(point[1]);
+//					byte[] bt = xyPoint.getBytes("UTF-8");
+//					OutputStream sender = connSock.getOutputStream();
+//					sender.write(bt);
+//
+//				} catch (Exception e) {
+//					System.out.println(e);
+//				}		
+//			}
+//		});
+
 
 		//화면 제목 설정
 		stage.setTitle("오목게임");
