@@ -24,7 +24,7 @@ public class ClientThreadRead extends Thread{
 				byte []bt = new byte[256];
 				int size = receiver.read(bt);
 				String readMsg = new String (bt, 0, size, "UTF-8");				
-				infoArea.setText(infoArea.getText()+"\n"+"상대방▶ "+readMsg);					
+				infoArea.setText(infoArea.getText()+"상대방▶ "+readMsg+"\n");					
 			}          
 			
 		} catch (Exception e) {			

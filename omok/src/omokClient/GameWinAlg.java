@@ -1,93 +1,254 @@
 package omokClient;
 
 public class GameWinAlg {
-/*	private final int[] UP = {-1, 0};
-	private final int[] RIGHT_UP = {-1, 1};
-	private final int[] RIGHT = {0, 1};
-	private final int[] RIGHT_DOWN = {1, 1};
-	private final int[] DOWN = {1, 0};
-	private final int[] LEFT_DOWN = {1, -1};
-	private final int[] LEFT = {0, -1};
-	private final int[] LEFT_UP = {-1, -1};*/
+	
+	static final int[] UP = { -1, 0 };
+	static final int[] RIGHT_UP = { -1, 1 };
+	static final int[] RIGHT = { 0, 1 };
+	static final int[] RIGHT_DOWN = { 1, 1 };
+	static final int[] DOWN = { 1, 0 };
+	static final int[] LEFT_DOWN = { 1, -1 };
+	static final int[] LEFT = { 0, -1 };
+	static final int[] LEFT_UP = { -1, -1 };
+	
+	int[][] board; // 바둑판 생성 
+	
+	int[] point;		// 바둑돌을 놓는 좌표를 저장하는 배열
+	int[] checkPoint;	// 주변돌의 좌표를 넣어주는 배열
+	
+	static boolean pointCheck = true;	// 탐색할때 방향이 변하는지 파악하는 변수
+	
+	public GameWinAlg(int[] point, int[] checkPoint,	int[][] board){
+		this.point = point;		// 바둑돌을 놓는 좌표를 저장하는 배열
+		this.checkPoint = checkPoint;	// 주변돌의 좌표를 넣어주는 배열
+		this.board = board; // 바둑판 생성  		
+	}
+	
+	
+	public static void clonePoint(int[] point, int[] checkPoint, int[][] board) {	// 포인트 좌표를 체크 포인트에 복사
 
-	private int countSameStoneOnVertical(int[] point, int[][] board) {
-		int cnt = 0;
-		int[] nextCheckUpPoint = point.clone();
-		while (nextCheckUpPoint[0] >= 0 && (board[nextCheckUpPoint[1]][nextCheckUpPoint[0]] == board[point[1]][point[0]])) {
-			cnt++;
-			nextCheckUpPoint[0]--;
+		for (int i = 0; i < 2; i++) {
+			checkPoint[i] = point[i];
 		}
-
-		int[] nextCheckDownPoint = point.clone();
-		while (nextCheckDownPoint[0] < board.length && (board[nextCheckDownPoint[1]][nextCheckDownPoint[0]] == board[point[1]][point[0]])) {
-			cnt++;
-			nextCheckDownPoint[0]++;
-		}
-		return --cnt;
 	}
 
-	private int countSameStoneOnHorizon(int[] point, int[][] board) {
-		int cnt = 0;
-		int[] nextCheckRightPoint = point.clone();
-		while (nextCheckRightPoint[1] < board.length && (board[nextCheckRightPoint[1]][nextCheckRightPoint[0]] == board[point[1]][point[0]])) {
-			cnt++;
-			nextCheckRightPoint[1]++;
-		}
-		int[] nextCheckLeftPoint = point.clone();
-		while (nextCheckLeftPoint[1] >= 0 && (board[nextCheckLeftPoint[1]][nextCheckLeftPoint[0]] == board[point[1]][point[0]])) {
-			cnt++;
-			nextCheckLeftPoint[1]--;
-		}
-		return --cnt;
+	public static boolean compareUpDown(int[] point, int[] checkPoint, int[][] board) {
+
+		int cnt = 1;
+
+		clonePoint(point, checkPoint, board);// 체크포인트 복사
+		while(pointCheck){
+			pointCheck = pointUP(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
+				cnt++;
+			}
+			else 
+				break;
+		} // 위로 같은 돌인지 체크
+
+		pointCheck = true;
+		clonePoint(point, checkPoint, board);// 체크포인트 복사
+		while(pointCheck){
+			pointCheck = pointDOWN(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
+				cnt++;
+			}
+			else 
+				break;
+		} // 아래로 같은 돌인지 체크
+		clonePoint(point, checkPoint, board);// 체크포인트 복사
+		if (cnt == 5)
+			return true;
+		else{
+			cnt = 1;
+			return false;
+			}
 	}
 
-	private int countSameStoneOnDiagonalRight(int[] point, int[][] board) {
-		int cnt = 0;
-		int[] nextCheckDiagonalRightUpPoint = point.clone();
-		while ((nextCheckDiagonalRightUpPoint[0] >= 0 && nextCheckDiagonalRightUpPoint[1] < board.length)
-				&& (board[nextCheckDiagonalRightUpPoint[1]][nextCheckDiagonalRightUpPoint[0]] == board[point[1]][point[0]])) {
-			cnt++;
-			nextCheckDiagonalRightUpPoint[0]--;
-			nextCheckDiagonalRightUpPoint[1]++;
-		}
+	public static boolean pointUP(int[] point, int[] checkPoint, int[][] board) {
 
-		int[] nextCheckDiagonalLeftDownPoint = point.clone();
-		while ((nextCheckDiagonalLeftDownPoint[0] < board.length && nextCheckDiagonalLeftDownPoint[1] >= 0)
-				&& (board[nextCheckDiagonalLeftDownPoint[1]][nextCheckDiagonalLeftDownPoint[0]] == board[point[1]][point[0]])) {
-			cnt++;
-			nextCheckDiagonalLeftDownPoint[0]++;
-			nextCheckDiagonalLeftDownPoint[1]--;
+		if(checkPoint[0] == 0)
+			return false;
+		for (int i = 0; i < 2; i++) {
+			checkPoint[i] += UP[i];
 		}
-		return --cnt;
+		return true;
+	}
+	public static boolean pointDOWN(int[] point, int[] checkPoint, int[][] board) {
+
+		if(checkPoint[0] == 18)
+			return false;
+		for (int i = 0; i < 2; i++) {
+			checkPoint[i] += DOWN[i];
+		}
+		return true;
 	}
 
-	private int countSameStoneDiagonalLeft(int[] point, int[][] board) {
-		int cnt = 0;
-		int[] nextCheckDiagonalRightDownPoint = point.clone();
-		while ((nextCheckDiagonalRightDownPoint[0] < board.length && nextCheckDiagonalRightDownPoint[1] < board.length)
-				&& (board[nextCheckDiagonalRightDownPoint[1]][nextCheckDiagonalRightDownPoint[0]] == board[point[1]][point[0]])) {
-			cnt++;
-			nextCheckDiagonalRightDownPoint[0]++;
-			nextCheckDiagonalRightDownPoint[1]++;
-		}
+	public static boolean compareRightLeft(int[] point, int[] checkPoint, int[][] board) {
 
-		int[] nextCheckDiagonalLeftUpPoint = point.clone();
-		while ((nextCheckDiagonalLeftUpPoint[0] >= 0 && nextCheckDiagonalLeftUpPoint[1] >= 0)
-				&& (board[nextCheckDiagonalLeftUpPoint[1]][nextCheckDiagonalLeftUpPoint[0]] == board[point[1]][point[0]])) {
-			cnt++;
-			nextCheckDiagonalLeftUpPoint[0]--;
-			nextCheckDiagonalLeftUpPoint[1]--;
-		}
-		return --cnt;
+		int cnt = 1;
+
+		clonePoint(point, checkPoint, board);// 체크포인트 복사
+		while(pointCheck){
+			pointCheck = pointRight(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
+				cnt++;
+			}
+			else 
+				break;
+		} // 우로 같은 돌인지 체크
+
+		pointCheck = true;
+		clonePoint(point, checkPoint, board);// 체크포인트 복사
+		while(pointCheck){
+			pointCheck = pointLeft(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
+				cnt++;
+			}
+			else 
+				break;
+		} // 좌로 같은 돌인지 체크
+		clonePoint(point, checkPoint, board);// 체크포인트 복사
+		if (cnt == 5)
+			return true;
+		else{
+			cnt = 1;
+			return false;
+			}
 	}
 
-	public boolean compareStone(int[] point, int[][] board) {
-		System.out.println("vertical" + countSameStoneOnVertical(point, board));
-		System.out.println("horizon" + countSameStoneOnHorizon(point, board));
-		System.out.println("DiagnolRight" + countSameStoneOnDiagonalRight(point, board));
-		System.out.println("DiagnolLeft" + countSameStoneDiagonalLeft(point, board));
-		return Math.max(
-				Math.max(countSameStoneOnVertical(point, board), countSameStoneOnHorizon(point, board)),
-				Math.max(countSameStoneOnDiagonalRight(point, board), countSameStoneDiagonalLeft(point, board))) >= 5;
+
+	public static boolean pointRight(int[] point, int[] checkPoint, int[][] board) {
+
+		if(checkPoint[1] == 18)
+			return false;
+		for (int i = 0; i < 2; i++) {
+			checkPoint[i] += RIGHT[i];
+		}
+		return true;
 	}
+	public static boolean pointLeft(int[] point, int[] checkPoint, int[][] board) {
+
+		if(checkPoint[1] == 0)
+			return false;
+		for (int i = 0; i < 2; i++) {
+			checkPoint[i] += LEFT[i];
+		}
+		return true;
+	}
+	
+	public static boolean compareDiagonalR(int[] point, int[] checkPoint, int[][] board) {
+
+		int cnt = 1;
+
+		clonePoint(point, checkPoint, board);// 체크포인트 복사
+		while(pointCheck){
+			pointCheck = pointRightUp(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
+				cnt++;
+			}
+			else 
+				break;
+		} // 우위로 같은 돌인지 체크
+
+		pointCheck = true;
+		clonePoint(point, checkPoint, board);// 체크포인트 복사
+		while(pointCheck){
+			pointCheck = pointLeftDown(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
+				cnt++;
+			}
+			else 
+				break;
+		} // 좌아래로 같은 돌인지 체크
+		clonePoint(point, checkPoint, board);// 체크포인트 복사
+		if (cnt == 5)
+			return true;
+		else{
+			cnt = 1;
+			return false;
+			}
+	}
+
+
+	public static boolean pointRightUp(int[] point, int[] checkPoint, int[][] board) {
+
+		if(checkPoint[0] == 0||checkPoint[1] == 18){
+			return false;
+		}
+		for (int i = 0; i < 2; i++) {
+			checkPoint[i] += RIGHT_UP[i];
+		}
+		return true;
+	}
+	public static boolean pointLeftDown(int[] point, int[] checkPoint, int[][] board) {
+
+		if(checkPoint[0] == 18||checkPoint[1] == 0)
+			return false;
+		for (int i = 0; i < 2; i++) {
+			checkPoint[i] += LEFT_DOWN[i];
+		}
+		return true;
+	}
+	
+	public static boolean compareDiagonalL(int[] point, int[] checkPoint, int[][] board) {
+
+		int cnt = 1;
+
+		clonePoint(point, checkPoint, board);// 체크포인트 복사
+		while(pointCheck){
+			pointCheck = pointRightDown(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
+				cnt++;
+			}
+			else 
+				break;
+		} // 우위로 같은 돌인지 체크
+
+		pointCheck = true;
+		clonePoint(point, checkPoint, board);// 체크포인트 복사
+		while(pointCheck){
+			pointCheck = pointLeftUp(point, checkPoint, board);
+			if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]] && pointCheck) {
+				cnt++;
+			}
+			else 
+				break;
+		} // 좌아래로 같은 돌인지 체크
+		clonePoint(point, checkPoint, board);// 체크포인트 복사
+		if (cnt == 5)
+			return true;
+		else{
+			cnt = 1;
+			return false;
+			}
+	}
+
+
+	public static boolean pointRightDown(int[] point, int[] checkPoint, int[][] board) {
+
+		if(checkPoint[0] == 18||checkPoint[1] == 18){
+			return false;
+		}
+		for (int i = 0; i < 2; i++) {
+			checkPoint[i] += RIGHT_DOWN[i];
+		}
+		return true;
+	}
+	public static boolean pointLeftUp(int[] point, int[] checkPoint, int[][] board) {
+
+		if(checkPoint[0] == 0||checkPoint[1] == 0)
+			return false;
+		for (int i = 0; i < 2; i++) {
+			checkPoint[i] += LEFT_UP[i];
+		}
+		return true;
+	}
+	
+	public boolean compareStone(int[] point, int[] checkPoint, int[][] board) {
+		if(compareUpDown(point, checkPoint, board)||compareRightLeft(point, checkPoint, board)||compareDiagonalR(point, checkPoint, board)||compareDiagonalL(point, checkPoint, board))
+			return true;
+		return false;
+	}
+	
 }
