@@ -79,26 +79,34 @@ public class GameEntryPoint extends Application{
 		GraphicsContext stoneGC = omokPan.getGraphicsContext2D();   
 		root.getChildren().add(omokStone);
 
-		//사람 입장 자리
-		Canvas peopleEnter = new Canvas(190, 200);
-		GraphicsContext peopleGC = peopleEnter.getGraphicsContext2D();
-		allpeople.peopleEnter(peopleGC);
-		peopleEnter.setLayoutX(620); //시작 x축
-		peopleEnter.setLayoutY(58); //시작 y축
-		root.getChildren().add(peopleEnter);
-		
+		//사람 입장 자리1
+		Canvas peopleEnter1 = new Canvas(190, 100);
+		GraphicsContext peopleGC1 = peopleEnter1.getGraphicsContext2D();
+		allpeople.peopleEnter1(peopleGC1);
+		peopleEnter1.setLayoutX(620); //시작 x축
+		peopleEnter1.setLayoutY(58); //시작 y축
+		root.getChildren().add(peopleEnter1);
+
+		//사람 입장 자리2
+		Canvas peopleEnter2 = new Canvas(190, 100);
+		GraphicsContext peopleGC2 = peopleEnter2.getGraphicsContext2D();
+		allpeople.peopleEnter2(peopleGC2);
+		peopleEnter2.setLayoutX(620); //시작 x축
+		peopleEnter2.setLayoutY(162); //시작 y축
+		root.getChildren().add(peopleEnter2);
+
 		//게임 채팅창 같은거....	
 		TextArea infoArea = new TextArea();
 		infoArea.setPrefSize(190, 270); //채팅창. 가로, 세로
 		infoArea.setLayoutX(620); //창 위치 x값
-		infoArea.setLayoutY(270); //창 위치 y값
+		infoArea.setLayoutY(275); //창 위치 y값
 		root.getChildren().add(infoArea);   
 		
 		//게임 채팅 쓰는 칸....
 		TextField chatInput = new TextField();
 		chatInput.setPrefSize(190, 30);
 		chatInput.setLayoutX(620);
-		chatInput.setLayoutY(545);
+		chatInput.setLayoutY(550);
 		root.getChildren().add(chatInput);   
 
 		//게임시작 버튼을 만들어 준다.         
@@ -188,6 +196,7 @@ public class GameEntryPoint extends Application{
 				chatInput.clear();				
 			}
 		});
+		
 //		omokPan.setOnMouseClicked((event) -> {
 //			if(!(event.getX() < 8 || event.getX() > 572 || event.getY() < 8 || event.getY() > 572)){
 //				try {
