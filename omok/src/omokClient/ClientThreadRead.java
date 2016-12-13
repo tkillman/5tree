@@ -26,7 +26,7 @@ public class ClientThreadRead extends Thread{
 				if(readMsg.startsWith("chat:")){
 					readMsg = readMsg.substring(5, readMsg.length());
 					infoArea.setText(infoArea.getText()+readMsg+"\n");
-					}
+				}
 				else if(readMsg.startsWith("point:")){
 					infoArea.setText(infoArea.getText()+"\n"+"»ó´ë¹æ¢º "+readMsg);
 				}

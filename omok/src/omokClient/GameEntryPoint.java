@@ -130,6 +130,7 @@ public class GameEntryPoint extends Application{
 
 				point[0] = allPan.nearPointArrayValue(event.getY());
 				point[1] = allPan.nearPointArrayValue(event.getX());
+				
 				if(sh.isCheck(point[0], point[1]) == 0){
 					try {
 						String xyPoint = "point:"+String.valueOf(point[0])+","+String.valueOf(point[1]);
@@ -140,6 +141,7 @@ public class GameEntryPoint extends Application{
 					} catch (Exception e) {
 						System.out.println(e);
 					}  
+					
 					if(allPan.blackBool){ //처음은 무조건 흑돌 먼저													//
 						allPan.stone(allPan.nearPoint(event.getX()), allPan.nearPoint(event.getY()), stoneGC);  //
 					}else if(allPan.whiteBool){																	//   돌 그리는 메소드!
