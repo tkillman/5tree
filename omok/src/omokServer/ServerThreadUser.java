@@ -30,6 +30,7 @@ class ServerThreadUser extends Thread{
 			//어떤 클라이언트 들어왔는지 확인해야함.
 			for(ServerClientInfo ci:clientInfo){
 				System.out.println(ci);
+				
 			}				
 			
 			//클라이언트에서 보낸 글 받기
@@ -63,5 +64,11 @@ class ServerThreadUser extends Thread{
 			System.out.println("error : " + e);
 		}
 
-	}		
+	}	
+	
+	
+	
+	
+	
+	
 }

@@ -28,7 +28,7 @@ public class ClientThreadRead extends Thread{
 					infoArea.setText(infoArea.getText()+readMsg+"\n");
 				}
 				else if(readMsg.startsWith("point:")){
-					infoArea.setText(infoArea.getText()+"\n"+"상대방▶ "+readMsg);
+					infoArea.setText(infoArea.getText()+"상대방▶ "+readMsg+"\n");
 				}
 			}          
 			

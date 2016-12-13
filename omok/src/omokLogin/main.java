@@ -1,10 +1,14 @@
 package omokLogin;
 
+import java.net.InetSocketAddress;
+import java.net.Socket;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import omokClient.ClientThreadRead;
 
 public class main extends Application{
 
@@ -22,5 +26,6 @@ public class main extends Application{
 	
 	public static void main(String[] args) {
 		launch(args);
+		
 	}
 }
