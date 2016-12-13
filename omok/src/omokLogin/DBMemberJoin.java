@@ -16,7 +16,7 @@ public class DBMemberJoin {
 			System.out.println("드라이버 로딩하였습니다.");
 
 			//2.
-			String url = "jdbc:oracle:thin:@192.168.20.25:1521:xe";
+			String url = "jdbc:oracle:thin:@192.168.20.23:1521:xe";
 			String username = "sys as sysdba"; //오라클 로그인 아이디 (잊으면 큰일남)
 			String password = "jey1234"; //오라클 로그인 비밀번호
 			Connection con = DriverManager.getConnection(url, username, password);

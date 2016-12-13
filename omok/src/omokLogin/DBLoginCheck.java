@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class DBLoginCheck {
 
-	public static void DBlogin(String logId, String logPw) {
+	public static int DBlogin(String logId, String logPw) {
 		// TODO Auto-generated method stub
 
 		try {			
@@ -17,7 +17,7 @@ public class DBLoginCheck {
 			System.out.println("드라이버 로딩하였습니다.");
 
 			//2.
-			String url = "jdbc:oracle:thin:@192.168.20.25:1521:xe";
+			String url = "jdbc:oracle:thin:@192.168.20.23:1521:xe";
 			String username = "sys as sysdba"; //오라클 로그인 아이디 (잊으면 큰일남)
 			String password = "jey1234"; //오라클 로그인 비밀번호
 			Connection con = DriverManager.getConnection(url, username, password);
@@ -42,19 +42,18 @@ public class DBLoginCheck {
 			}	
 			
 			//로그인 확인 조건문
-			if(!(logId.equals(getID))){
-				System.out.println("아이디를 다시 입력해주세요.");
-			}else if(!(logPw.equals(getPW))){
-				System.out.println("비밀번호를 다시 입력해주세요.");
-			}else if(logId.equals(getID) && logPw.equals(getPW)){
-				System.out.println("로그인 성공하였습니다.");
+			if(!(logId.equals(getID))){							
+				return 0; //아이디 안맞음
+			}else if(!(logPw.equals(getPW))){				
+				return 1; //비밀번호 안맞음
 			}
 			
 		} catch (Exception e) {
 			System.out.println(e);
 		}			
 		
-		
+		//로그인 확인
+		return 2;
 	}
 
 }

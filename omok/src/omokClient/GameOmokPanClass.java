@@ -75,6 +75,7 @@ public class GameOmokPanClass {
 			blackBool = true;
 			whiteBool = false;
 		}
+		
 		gc.fillOval(lineX-15, lineY-15, 30, 30); //마우스 클릭한 부분의 중간에 돌을 놓기위해 -15해주고, 돌 크기는 30정도
 	}
 
