@@ -16,7 +16,7 @@ public class DBMemberJoin {
 			System.out.println("드라이버 로딩하였습니다.");
 
 			//2.
-			String url = "jdbc:oracle:thin:@192.168.20.23:1521:xe";
+			String url = "jdbc:oracle:thin:@192.168.20.28:1521:xe";
 			String username = "sys as sysdba"; //오라클 로그인 아이디 (잊으면 큰일남)
 			String password = "jey1234"; //오라클 로그인 비밀번호
 			Connection con = DriverManager.getConnection(url, username, password);
@@ -25,8 +25,12 @@ public class DBMemberJoin {
 			//3.
 			Statement st = con.createStatement();
 			
+			//st -> INSERT INTO memberJoin(id, pw, nick, win, draw, lose)
+			//pst -> INSERT INTO memberJoin(id, pw, nick, ?, ?, ?)
+			
 			//4. st를 이용해서 쿼리 작성
-			String sql = "INSERT INTO memberJoin(id, pw, nick) VALUES ('"+joinId+"', '"+joinPw+"', '"+joinNick+"')";
+			String sql = "INSERT INTO memberJoin(id, pw, nick) "
+					+ "VALUES ('"+joinId+"', '"+joinPw+"', '"+joinNick+"')";
 			//삽입. sql에서 쓰는 거 그대로 씀. 여기서 숫자를 넣으면 계속해서 oracle에 저장됨.
 			//이런식으로 쓰게 되면 오라클에 1000이 저장되게 된다. UPDATE, DELETE도 가능.
 

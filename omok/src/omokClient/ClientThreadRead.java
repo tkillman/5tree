@@ -13,6 +13,7 @@ public class ClientThreadRead extends Thread{
    GameOmokPanClass allPan;
    GraphicsContext stoneGC;
    GameStoneHandle sh;
+   
    ClientThreadRead(Socket connSock, TextArea infoArea, GameOmokPanClass allPan, GraphicsContext stoneGC, GameStoneHandle sh){
       this.connSock = connSock;
       this.infoArea = infoArea;
@@ -32,16 +33,15 @@ public class ClientThreadRead extends Thread{
             if(readMsg.startsWith("chat:")){
                readMsg = readMsg.substring(5, readMsg.length());
                infoArea.setText(infoArea.getText()+readMsg+"\n");
-               }
+            }
             else if(readMsg.startsWith("point:")){
                readMsg = readMsg.substring(6, readMsg.length());
                String [] pointXY = readMsg.split(",");
                int point[] = new int[2];
                for(int i = 0 ; i < 2 ; i++)
-                  point [i] = Integer.parseInt(pointXY[i]);
-               
+                  point [i] = Integer.parseInt(pointXY[i]);               
              
-               allPan.stone(point[1]*30+20,point[0]*30+20, stoneGC);  	//
+               allPan.stone(point[1]*30+20,point[0]*30+20, stoneGC);
                sh.stone(point);	// 알고리즘!
             }
          }          

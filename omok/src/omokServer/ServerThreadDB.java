@@ -1,15 +1,21 @@
-package omokLogin;
+package omokServer;
 
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
-public class DBLoginCheck {
+//클라이언트 들어오면 연결해주는 스레드
+public class ServerThreadDB extends Thread{
+	String getID = null;
+	String getPW = null;
 
-	public static int DBlogin(String logId, String logPw) {
-		// TODO Auto-generated method stub
-
+	//start로 자동 실행
+	public void run(){
+		
 		try {			
 			//1. 드라이버 로딩
 			String driver = "oracle.jdbc.driver.OracleDriver";
@@ -33,27 +39,15 @@ public class DBLoginCheck {
 			ResultSet resultSQL = st.executeQuery(sql);
 			System.out.println("오라클에서 꺼내왔습니다.");
 			
-			//6. select해온 결과를 뽑아냄
-			String getID = null;
-			String getPW = null;
+			//6. select해온 결과를 뽑아냄			
 			while(resultSQL.next()){ 				
 				getID = resultSQL.getString("id");
 				getPW = resultSQL.getString("pw");					
 			}	
 			
-			//로그인 확인 조건문
-			if(!(logId.equals(getID))){							
-				return 0; //아이디 안맞음
-			}else if(!(logPw.equals(getPW))){				
-				return 1; //비밀번호 안맞음
-			}
 			
 		} catch (Exception e) {
 			System.out.println(e);
-		}			
-		
-		//로그인 확인
-		return 2;
-	}
-
+		}		
+	}	
 }
