@@ -202,12 +202,12 @@ public class GameEntryPoint extends Application {
 						System.out.println(e);
 					}
 
-					if (allPan.blackBool) { // 처음은 무조건 흑돌 먼저 //
-						allPan.stone(allPan.nearPoint(event.getX()), allPan.nearPoint(event.getY()), stoneGC); //
-					} else if (allPan.whiteBool) { // 돌 그리는 메소드!
-						allPan.stone(allPan.nearPoint(event.getX()), allPan.nearPoint(event.getY()), stoneGC); //
-					}
-					sh.stone(point); // 콘솔창에 돌에대한 데이터를 입력해주는 메소드
+//					if (allPan.blackBool) { // 처음은 무조건 흑돌 먼저 //
+//						allPan.stone(allPan.nearPoint(event.getX()), allPan.nearPoint(event.getY()), stoneGC); //
+//					} else if (allPan.whiteBool) { // 돌 그리는 메소드!
+//						allPan.stone(allPan.nearPoint(event.getX()), allPan.nearPoint(event.getY()), stoneGC); //
+//					}
+//					sh.stone(point); // 콘솔창에 돌에대한 데이터를 입력해주는 메소드
 				}
 			}
 		});
@@ -216,7 +216,7 @@ public class GameEntryPoint extends Application {
 		// 서버 접속 소켓 생성
 		try {
 			//클라이언트 채팅 읽는 스레드 콜
-			ClientThreadRead read = new ClientThreadRead(connSock, infoArea);
+			ClientThreadRead read = new ClientThreadRead(connSock, infoArea, allPan,  stoneGC, sh);
 			read.start();
 
 		} catch (Exception e) {
