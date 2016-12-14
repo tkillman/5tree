@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="237.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="omokLogin.PopupController">
+   <children>
+      <Label prefHeight="50.0" prefWidth="1.0" text="Label" />
+      <ImageView fitHeight="35.0" fitWidth="35.0">
+         <image>
+            <Image url="@../image/exclamation_mark.png" />
+         </image>
+      </ImageView>
+      <Label prefHeight="50.0" prefWidth="1.0" text="Label" />
+      <Label contentDisplay="TEXT_ONLY" prefHeight="35.0" prefWidth="186.0" text="닉네임을 정확히 입력해주세요." textFill="WHITE" />
+   </children>
+</HBox>

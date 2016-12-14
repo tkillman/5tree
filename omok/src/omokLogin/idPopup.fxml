@@ -5,7 +5,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox fx:id="loginPU" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="216.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="omokLogin.rootController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="216.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" 
+fx:controller="omokLogin.PopupController">
    <children>
       <Label prefHeight="50.0" prefWidth="1.0" text="Label" />
       <ImageView fitHeight="35.0" fitWidth="35.0">
@@ -14,6 +15,6 @@
          </image>
       </ImageView>
       <Label prefHeight="50.0" prefWidth="1.0" text="Label" />
-      <Label fx:id="imgMessage" contentDisplay="TEXT_ONLY" prefHeight="35.0" prefWidth="167.0" text="아이디를 다시 입력하세요." textFill="WHITE" />
+      <Label contentDisplay="TEXT_ONLY" prefHeight="35.0" prefWidth="167.0" text="아이디를 다시 입력하세요." textFill="WHITE" />
    </children>
 </HBox>

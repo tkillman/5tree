@@ -1,5 +1,6 @@
 package omokLogin;
 
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -34,7 +35,6 @@ public class rootController implements Initializable{
 	
 	Socket connSock = null;
 	
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {		
 		
@@ -47,12 +47,11 @@ public class rootController implements Initializable{
 					Scene scene = new Scene(joinus);
 					Stage primaryStage = (Stage)btn1.getScene().getWindow();
 					primaryStage.setScene(scene);
-	
 				}catch(Exception e){
 					e.printStackTrace();
 				}
 			}
-		});		
+		});
 		
 		
 		//서버에 접속할 때 사용할 소켓 생성		
@@ -63,11 +62,7 @@ public class rootController implements Initializable{
 			InetSocketAddress connAddr = new InetSocketAddress("127.0.0.1", 1818);
 			connSock.connect(connAddr); // 위에서 결정한 주소로 연결 
 			System.out.println("서버에 접속하였습니다.");
-			
-			//
-			ClientThreadLoginResult loginResult = new ClientThreadLoginResult(connSock);
-			loginResult.start();
-			
+							
 		} catch (Exception e) {
 			// TODO: handle exception
 		}					
@@ -84,16 +79,36 @@ public class rootController implements Initializable{
 					
 					//받아낸 string을 login을 붙여서 logID, logPW를 넘긴다.
 					String loginIDPW = "login:"+strLogId+","+strLogPw;
-					byte []bt = loginIDPW.getBytes("UTF-8");
+					byte[] bt = loginIDPW.getBytes("UTF-8");
 					OutputStream sender = connSock.getOutputStream();
-					sender.write(bt);
-										
+					sender.write(bt);		
+					
+					//서버에서 받는거
+		            InputStream receiver = connSock.getInputStream();// 소켓에서 데이터를 가져오려면 꼭 필요함.
+		            int size = receiver.read(bt);
+		            String readMsg = new String (bt, 0, size, "UTF-8");
+		            PopupController puc = new PopupController();
+		            
+		            System.out.println("readMsg="+readMsg);
+		            
+		            if(readMsg.equals("failID:")){
+		            	System.out.println("클라이언트 아이디 실패");
+		        		puc.idPopup();
+		            }else if(readMsg.equals("failPW:")){
+		            	System.out.println("클라이언트 비번 실패");
+		            	puc.pwPopup();
+		            	System.out.println("pass fail~~");
+		            }else if(readMsg.equals("welcome:")){
+		            	System.out.println("클라이언트 성공");
+		            	//로그인창 꺼지고 게임 창 실행
+		            	
+		            }
+									
 				} catch (Exception e) {
 					System.out.println("예외발생"+e);
 				}
 				
 			}
 		});	
-		
 	}
 }
