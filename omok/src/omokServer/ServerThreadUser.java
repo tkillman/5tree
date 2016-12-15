@@ -94,8 +94,8 @@ class ServerThreadUser extends Thread{
 				sendLoginResult(loginResult);
 			}else{
 				System.out.println("로그인 성공");
-				System.out.println("total="+db.getTOTAL);
-				loginResult = "welcome" + ":" + db.getNICK + ":" + db.getTOTAL; //닉네임,전적 가져와서 welcome 키워드와 결합
+				System.out.println("getWIN="+db.getWIN+"getLOSE="+db.getLOSE);
+				loginResult = "welcome" + ":" + db.getNICK + ":" + db.getWIN +":"+ db.getLOSE; //닉네임,전적 가져와서 welcome 키워드와 결합
 				sendLoginResult(loginResult);
 			}
 			

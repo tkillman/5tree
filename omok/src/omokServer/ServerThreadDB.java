@@ -13,7 +13,8 @@ public class ServerThreadDB extends Thread{
 	String getID = null;
 	String getPW = null;
 	String getNICK = null;
-	String getTOTAL = null;
+	String getWIN = null;
+	String getLOSE = null;
 	
 	//start로 자동 실행
 	public void run(){
@@ -30,7 +31,7 @@ public class ServerThreadDB extends Thread{
 			String password = "jey1234"; //오라클 로그인 비밀번호
 			Connection con = DriverManager.getConnection(url, username, password);
 			System.out.println("DB 연결 성공!");
-
+			System.out.println("gld");//지우셈
 			//3.
 			Statement st = con.createStatement();
 			
@@ -46,7 +47,8 @@ public class ServerThreadDB extends Thread{
 				getID = resultSQL.getString("id");
 				getPW = resultSQL.getString("pw");	
 				getNICK = resultSQL.getString("nick");	
-				getTOTAL = resultSQL.getString("total");
+				getWIN = resultSQL.getString("win");
+				getLOSE = resultSQL.getString("lose");
 			}	
 			
 			

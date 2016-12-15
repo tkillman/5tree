@@ -37,16 +37,11 @@ public class rootController implements Initializable{
 	Socket connSock = null;
 
 	String [] splitMsg;
-	String Total;
-	String Nick;
+	String Nick; //´Ð³×ÀÓ 
+	String WIN; //½Â
+	String LOSE;//ÆÐ 
 	
-	public String getTotal() {
-		return Total;
-	}
 
-	public void setTotal(String total) {
-		Total = total;
-	}
 
 	public String getNick() {
 		return Nick;
@@ -55,7 +50,19 @@ public class rootController implements Initializable{
 	public void setNick(String nick) {
 		Nick = nick;
 	}
+	public String getWIN() {
+		return WIN;
+	}
+	public void setWIN(String wIN) {
+		WIN = wIN;
+	}
+	public String getLOSE() {
+		return LOSE;
+	}
 
+	public void setLOSE(String lOSE) {
+		LOSE = lOSE;
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {		
