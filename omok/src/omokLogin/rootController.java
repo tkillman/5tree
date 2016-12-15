@@ -26,6 +26,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class rootController implements Initializable{
+	
 	@FXML private Button btn1;
 	@FXML private Button btn2;
 	@FXML private TextField logId;
@@ -34,7 +35,28 @@ public class rootController implements Initializable{
 	@FXML private ImageView imgMessage;
 	
 	Socket connSock = null;
+
+	String [] splitMsg;
+	String Total;
+	String Nick;
 	
+	public String getTotal() {
+		return Total;
+	}
+
+	public void setTotal(String total) {
+		Total = total;
+	}
+
+	public String getNick() {
+		return Nick;
+	}
+
+	public void setNick(String nick) {
+		Nick = nick;
+	}
+
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {		
 		
@@ -78,30 +100,36 @@ public class rootController implements Initializable{
 					String strLogPw = logPw.getText();
 					
 					//받아낸 string을 login을 붙여서 logID, logPW를 넘긴다.
-					String loginIDPW = "login:"+strLogId+","+strLogPw;
+					//String loginIDPW = "login:"+strLogId+","+strLogPw;//왜 구분자가 여러가지야 -_-;  split메소드 사용하는게 좋음
+					String loginIDPW = "login:"+strLogId+":"+strLogPw;
 					byte[] bt = loginIDPW.getBytes("UTF-8");
 					OutputStream sender = connSock.getOutputStream();
 					sender.write(bt);		
 					
 					//서버에서 받는거
+					byte[] recv = new byte[100]; //수신된 데이터 저장할 변수(recv)-->!!(꿀팁)나중을 대비하면 ArrayList
 		            InputStream receiver = connSock.getInputStream();// 소켓에서 데이터를 가져오려면 꼭 필요함.
-		            int size = receiver.read(bt);
-		            String readMsg = new String (bt, 0, size, "UTF-8");
-		            PopupController puc = new PopupController();
+		            int size = receiver.read(recv);
+		            String readMsg = new String (recv, 0, size, "UTF-8");
+		            System.out.println("readMsg="+readMsg);//그냥 잘 받았나 출력해보는곳
 		            
-		            System.out.println("readMsg="+readMsg);
-		            
-		            if(readMsg.equals("failID:")){
+		            splitMsg = readMsg.split(":"); // 서버가 보내준 메시지를 콜론을 기준으로 잘라서 배열에 담는다.
+		            		            
+		            PopupController puc = new PopupController(); 
+		            		            
+		            if(splitMsg[0].equals("failID")){
 		            	System.out.println("클라이언트 아이디 실패");
 		        		puc.idPopup();
-		            }else if(readMsg.equals("failPW:")){
+		            }else if(splitMsg[0].equals("failPW")){
 		            	System.out.println("클라이언트 비번 실패");
 		            	puc.pwPopup();
 		            	System.out.println("pass fail~~");
-		            }else if(readMsg.equals("welcome:")){
+		            }else if(splitMsg[0].equals("welcome")){
 		            	System.out.println("클라이언트 성공");
+		            	System.out.println(splitMsg[0]);
+		            	System.out.println(splitMsg[1]);
+		            	System.out.println(splitMsg[2]);
 		            	//로그인창 꺼지고 게임 창 실행
-		            	
 		            }
 									
 				} catch (Exception e) {

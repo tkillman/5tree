@@ -45,10 +45,10 @@ class ServerThreadUser extends Thread{
 				int size = receiver.read(bt);
 				String readMsg = new String (bt, 0, size, "UTF-8");		
 				System.out.println("¹Ş¾Æ½î");
-				if(readMsg.startsWith("chat:")||readMsg.startsWith("point:")){
-					send(cliAddr, readMsg); //¸Ş¼Òµå Äİ     
-				}else if(readMsg.startsWith("login:")){
-					loginCheck(readMsg);
+				if(readMsg.startsWith("chat:")||readMsg.startsWith("point:")){ //chatÀ¸·Î ½ÃÀÛÇÏ°Å³ª point:½ÃÀÛÇÏ¸é  
+					send(cliAddr, readMsg); //Á¢¼ÓµÈ Å¬¶óÀÌ¾ğÆ®¿¡°Ô ¸Ş½ÃÁö ±×´ë·Î Àü´Ş...//ÀÌ ¸Ş¼¼Áö¸¦ º¸³½ Å¬¶óÀÌ¾ğÆ®°¡ ¾Æ´Ï¶ó....´ëÀû»ó´ë Å¬¶óÀÌ¾ğÆ®¿¡°Ô Àü¼ÛÇÏµµ·Ï ¸¸µé¾î¶ó...Áö±İÀº º¸³½³ğÇÑÅ× ´Ù½Ã º¸³»ÁÖ´Âµí...
+				}else if(readMsg.startsWith("login:")){//loginÀ¸·Î ½ÃÀÛÇÏ¸é
+					loginCheck(readMsg); //·Î±×ÀÎÀ» È®ÀÎÇÏ´Â ¸Ş¼ÒµåloginCheck¸¦ È£­„, ÀÎÀÚ´Â ¹æ±İ ¹ŞÀº ¸Ş½ÃÁö¸¦ ³Ö¾îÁØ´Ù.
 					System.out.println("·Î±×ÀÎ Ã¼Å©");
 				}
 			}		
@@ -78,22 +78,24 @@ class ServerThreadUser extends Thread{
 	
 	//·Î±×ÀÎ Ã¼Å©
 	public void loginCheck(String readMsg){		
-		readMsg = readMsg.substring(6, readMsg.length());
-		String [] logCheck = readMsg.split(",");
+		//adMsg = readMsg.substring(6, readMsg.length());//ÀÌµûÀ§·Î ¸¸µéÁö¸¶!! ¼ö½ÅµÈ ¸Ş½ÃÁö¿¡ login: <--¿ä·¸°Ô 6±ÛÀÚ°¡ ³ª¿À°í µÚ¿¡ ¾ÆÀÌµğ
+		String [] logCheck = readMsg.split(":");
+		
 		String loginResult = null;
 		try {			
 			//·Î±×ÀÎ È®ÀÎ Á¶°Ç¹®
-			if(!(logCheck[0].equals(db.getID))){	
+			if(!(logCheck[1].equals(db.getID))){	
 				System.out.println("Á¸ÀçÇÏÁö ¾Ê´Â ID");
 				loginResult = "failID:";
 				sendLoginResult(loginResult);
-			}else if(!(logCheck[1].equals(db.getPW))){
+			}else if(!(logCheck[2].equals(db.getPW))){
 				System.out.println("pw Æ²¸²");
 				loginResult = "failPW:";
 				sendLoginResult(loginResult);
 			}else{
 				System.out.println("·Î±×ÀÎ ¼º°ø");
-				loginResult = "welcome:";
+				System.out.println("total="+db.getTOTAL);
+				loginResult = "welcome" + ":" + db.getNICK + ":" + db.getTOTAL; //´Ğ³×ÀÓ,ÀüÀû °¡Á®¿Í¼­ welcome Å°¿öµå¿Í °áÇÕ
 				sendLoginResult(loginResult);
 			}
 			

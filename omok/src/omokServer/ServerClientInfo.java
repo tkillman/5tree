@@ -4,6 +4,7 @@ import java.net.Socket;
 
 //array list
 class ServerClientInfo{
+	
 	Socket ss;
 	int peopleCount;
 	

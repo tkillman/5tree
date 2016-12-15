@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class GamepeopleEnterClass {
+	
 	//먼저 들어온 사람
 	void peopleEnter1(GraphicsContext gc){
 		gc.setFill(Color.rgb(196, 222, 255));

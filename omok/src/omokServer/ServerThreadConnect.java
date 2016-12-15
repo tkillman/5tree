@@ -41,6 +41,7 @@ public class ServerThreadConnect extends Thread{
 					//사람 증가
 					peopleCount++;					
 					break;
+					
 				}
 				
 			}				

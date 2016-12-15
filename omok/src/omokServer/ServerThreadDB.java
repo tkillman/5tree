@@ -12,7 +12,9 @@ import java.util.ArrayList;
 public class ServerThreadDB extends Thread{
 	String getID = null;
 	String getPW = null;
-
+	String getNICK = null;
+	String getTOTAL = null;
+	
 	//start로 자동 실행
 	public void run(){
 		
@@ -21,7 +23,7 @@ public class ServerThreadDB extends Thread{
 			String driver = "oracle.jdbc.driver.OracleDriver";
 			Class.forName(driver); //class명을 집어 넣어주면 자동으로 객체를 만들어주는 역할을 함.
 			System.out.println("드라이버 로딩하였습니다.");
-
+			
 			//2.
 			String url = "jdbc:oracle:thin:@192.168.20.28:1521:xe";
 			String username = "sys as sysdba"; //오라클 로그인 아이디 (잊으면 큰일남)
@@ -42,7 +44,9 @@ public class ServerThreadDB extends Thread{
 			//6. select해온 결과를 뽑아냄			
 			while(resultSQL.next()){ 				
 				getID = resultSQL.getString("id");
-				getPW = resultSQL.getString("pw");					
+				getPW = resultSQL.getString("pw");	
+				getNICK = resultSQL.getString("nick");	
+				getTOTAL = resultSQL.getString("total");
 			}	
 			
 			
