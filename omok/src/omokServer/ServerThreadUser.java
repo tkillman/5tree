@@ -14,6 +14,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 //메시지 읽고 쓰고 하는 스레드
 class ServerThreadUser extends Thread{	
@@ -54,10 +55,20 @@ class ServerThreadUser extends Thread{
 			}		
 			
 		} catch (Exception e) {
-			System.out.println("error : " + e);
+			
+			//사람 나가면 지우기				
+			Iterator<ServerClientInfo> it = clientInfo.iterator();
+			while(it.hasNext()){
+				ServerClientInfo sci = it.next();
+				if(sci.ss==cliSock){
+					it.remove();
+					//사람 나감 확인
+					System.out.println(cliSock);
+				}
+			}
 		}
 	}
-	
+
 	//메시지 뿌리기
 	public void send(InetAddress cliAddr, String readMsg) {
 		try {

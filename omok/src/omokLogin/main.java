@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import omokClient.ClientThreadRead;
 
 public class main extends Application{
 
@@ -25,8 +24,8 @@ public class main extends Application{
 		primaryStage.show();
 		
 	}
-	public static void main(String[] args) {
-		launch(args);
-		
-	}
+	
+	/*public static void main(String[] args) {
+		launch(args);		
+	}*/
 }

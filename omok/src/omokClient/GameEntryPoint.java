@@ -215,6 +215,13 @@ public class GameEntryPoint extends Application {
 		// --------------------------------------------
 		// 서버 접속 소켓 생성
 		try {
+			connSock = new Socket(); 
+			System.out.println("클라이언트 소켓을 생성하였습니다.");
+
+			InetSocketAddress connAddr = new InetSocketAddress("127.0.0.1", 1818);
+			connSock.connect(connAddr); // 위에서 결정한 주소로 연결 
+			System.out.println("서버에 접속하였습니다.");			
+			
 			//클라이언트 채팅 읽는 스레드 콜
 			ClientThreadRead read = new ClientThreadRead(connSock, infoArea, allPan,  stoneGC, sh);
 			read.start();
@@ -241,7 +248,6 @@ public class GameEntryPoint extends Application {
 			}
 		});
 
-
 		// 화면 제목 설정
 		stage.setTitle("오목게임");
 		stage.show();
@@ -267,8 +273,12 @@ public class GameEntryPoint extends Application {
 	public void stop() {
 		System.out.println("stop 메소드 콜");
 	}
+	
+	public static void main(String[] args) {
+		launch(args);		
+	}
 
-	public void gameMain(Socket connSock) {
+	/*public void gameMain(Socket connSock) {
 		this.connSock = connSock;
 		
 		// 메인 함수에서 자바fx를 띄운다.
@@ -276,6 +286,6 @@ public class GameEntryPoint extends Application {
 		launch();
 
 		// StoneHandle.gameStart();
-	}
+	}*/
 
 }
