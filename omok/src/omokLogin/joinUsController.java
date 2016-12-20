@@ -28,6 +28,18 @@ public class joinUsController implements Initializable{
 		btn1.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {						
+				
+				try{
+					Parent root = FXMLLoader.load(getClass().getResource("root.fxml"));
+					Scene scene = new Scene(root);
+					Stage PrimaryStage = (Stage)btn2.getScene().getWindow();
+					PrimaryStage.setScene(scene);
+				
+					}catch(Exception e){
+					e.printStackTrace();
+				}
+				
+				
 				//db로 id랑 패스워드랑 닉네임 넘겨주기
 				String strJoinId = joinId.getText();
 				String strJoinPw = joinPw.getText();
@@ -36,6 +48,8 @@ public class joinUsController implements Initializable{
 				//db연동 파일 호출하기
 				DBMemberJoin dbJoin = new DBMemberJoin();
 				dbJoin.DBJoin(strJoinId, strJoinPw, strJoinNick);	
+				
+								
 			}
 		});				
 		
