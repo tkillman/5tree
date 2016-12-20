@@ -3,14 +3,11 @@ package omokServer;
 import java.net.Socket;
 
 //array list
-class ServerClientInfo{
-	
+class ServerClientInfo{	
 	Socket ss;
-	int peopleCount;
 	
-	ServerClientInfo(Socket ss, int peopleCount){
+	ServerClientInfo(Socket ss){
 		this.ss = ss;
-		this.peopleCount = peopleCount;
 	}
 		
 }

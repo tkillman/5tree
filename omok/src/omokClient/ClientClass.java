@@ -18,10 +18,10 @@ public class ClientClass {
 		this.connSock = connSock;
 	}
 	
-	public void clientMain(){		
+	/*public void clientMain(){		
 		//게임메인
 		GameEntryPoint gep = new GameEntryPoint();
 		gep.gameMain(connSock); //게임 메인을 돌려야 GUI가 돌아간다.	
 		System.out.println(1);//ㅈㅣ워
-	}
+	}*/
 }

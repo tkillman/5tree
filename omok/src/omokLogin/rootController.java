@@ -64,20 +64,20 @@ public class rootController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {		
 		
 		//회원가입 버튼
-		btn1.setOnAction(new EventHandler<ActionEvent>() {			
+		btn1.setOnAction(new EventHandler<ActionEvent>() {		
+	
 			@Override
 			public void handle(ActionEvent event) {
 				try{
+					connSock.close(); //회원가입하고 취소
+					
 					Parent joinus = FXMLLoader.load(getClass().getResource("joinUs.fxml"));
 					Scene scene = new Scene(joinus);
 					Stage primaryStage = (Stage)btn1.getScene().getWindow();
 					primaryStage.setScene(scene);
 				}catch(Exception e){
 					e.printStackTrace();
-				}
-				
-				
-				
+				}	
 				
 			}
 		});
