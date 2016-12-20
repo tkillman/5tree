@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="150.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.PopupController">
+   <children>
+   <VBox>
+   	<Label contentDisplay="TEXT_ONLY" prefHeight="35.0" prefWidth="174.0" text="승리!!!!!!! " textFill="WHITE" />
+      <Button fx:id="btn" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" text="종료">
+      </Button>   
+   </VBox>     
+   </children>
+</HBox>
