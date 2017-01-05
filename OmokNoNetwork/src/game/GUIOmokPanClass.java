@@ -88,9 +88,11 @@ public class GUIOmokPanClass {
 		System.out.println("xy좌표 : " + pointXY);
 		return pointXY;
 	}
+	
 	//가까운 축 돌 좌표를 인덱스 값으로 전환하는 식
 	final int nearPointArrayValue(double xy){		
 		int pointXY = (int)(Math.round((xy-20)/30));
+	
 		return pointXY;
 	}
 }

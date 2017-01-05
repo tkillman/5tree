@@ -40,6 +40,7 @@ public class GameWinAlg {
 				break;
 		} // 위로 같은 돌인지 체크
 
+		
 		pointCheck = true;
 		clonePoint(point, checkPoint, board);// 체크포인트 복사
 		while(pointCheck){
@@ -50,6 +51,7 @@ public class GameWinAlg {
 			else 
 				break;
 		} // 아래로 같은 돌인지 체크
+		
 		clonePoint(point, checkPoint, board);// 체크포인트 복사
 		if (cnt == 5)
 			return true;

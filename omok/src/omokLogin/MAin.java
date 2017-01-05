@@ -6,11 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class main extends Application{
+public class MAin extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-	
+
 		primaryStage.setTitle("Omok Game");
 		Parent root = FXMLLoader.load(getClass().getResource("root.fxml"));
 		Scene scene = new Scene(root);
@@ -19,13 +19,12 @@ public class main extends Application{
 		primaryStage.setHeight(500);
 		primaryStage.setResizable(false);
 		primaryStage.show();
-		
+
 	}
-	
-	/*public static void main(String[] args) {
-		launch(args);		
-	}*/
+
+	public static void main(String[] args) {
+		launch(args);
+
+	}
+
 }
-
-
-

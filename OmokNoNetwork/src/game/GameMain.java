@@ -96,6 +96,7 @@ public class GameMain extends Application{
 		GraphicsContext stoneGC = omokPan.getGraphicsContext2D();
 		root.getChildren().add(omokStone);
 
+
 		// 사람 입장 자리1
 		Canvas peopleEnter1 = new Canvas(190, 100);
 		GraphicsContext peopleGC1 = peopleEnter1.getGraphicsContext2D();
@@ -155,8 +156,9 @@ public class GameMain extends Application{
 				pb.progressProperty().unbind();
 				pb.progressProperty().bind(copyWorker.progressProperty());
 				copyWorker.messageProperty().addListener(new ChangeListener<String>() {
+					
 					public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-						System.out.println(newValue);
+						//System.out.println(newValue);
 					}
 				});				
 				copyTh = new Thread(copyWorker);
@@ -183,18 +185,25 @@ public class GameMain extends Application{
 			System.out.println(event.getX() + ", " + event.getY());
 
 			// 돌 놓기
-			omokStone.setLayoutX(event.getX() - 15); // 캔버스 x축 시작위치
-			omokStone.setLayoutY(event.getY() - 15); // 캔버스 y축 시작위치
-			if(standby){
+			omokStone.setLayoutX(event.getX()); // 캔버스 x축 시작위치
+			omokStone.setLayoutY(event.getY()); // 캔버스 y축 시작위치
+			
+			if(standby){ //게임 시작 시 standby = true 가 된다.
 				// 오목 판 완전 가쪽에는 돌을 못놓도록 막아주어야 한다.
 				if (!(event.getX() < 8 || event.getX() > 572 || event.getY() < 8 || event.getY() > 572)) {
 
 
 					point[0] = allPan.nearPointArrayValue(event.getY());
+					
 					point[1] = allPan.nearPointArrayValue(event.getX());
+					
+					System.out.println(point[1]+","+point[0]);
+					
+					
+					
 						if(gsh.stone(point) == 1) 	// 1 : 승리했을때
 						{
-							if(gsh.turn(gsh.turnCnt)==1){
+							if(gsh.turn(gsh.turnCnt)==1){ //짝수가 흑이지만 끝나면서 Cnt 값 1 증가해서
 								infoArea.setText("흑돌 승리!!!");
 							}
 							else if(gsh.turn(gsh.turnCnt)==2){
@@ -206,10 +215,14 @@ public class GameMain extends Application{
 							//startBtn.setDisable(false); //버튼 활성화
 							allPan.stone(point[1] * 30 + 20, point[0] * 30 + 20, stoneGC);// 돌그리는 명령문
 						}
+						
 						else if (gsh.stone(point) == 2)
 							allPan.stone(point[1] * 30 + 20, point[0] * 30 + 20, stoneGC);// 돌그리는 명령문
+						
 						else if (gsh.stone(point) == 3)
 							System.out.println("33 팝업   나중엨ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ");
+						
+						
 				}
 			}
 		});
@@ -231,6 +244,7 @@ public class GameMain extends Application{
 	//프로그레스바 진행 시키는 Task	
 	public Task createWorker() {
 		return new Task() {
+			
 			@Override
 			protected Object call() throws Exception {
 				for (int i = 1; i <= 600; i++) {

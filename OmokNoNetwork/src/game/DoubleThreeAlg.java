@@ -35,14 +35,16 @@ public class DoubleThreeAlg {
 		boolean pointCheck = true;
 		
 		clonePoint(point, checkPoint);// 체크포인트 복사
+		
 		while(pointCheck){
 
-			pointCheck = checkThreeUp(point, checkPoint);
+			pointCheck = checkThreeUp(point, checkPoint); 
 			if(pointCheck){
 				if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]]) {
 					sCnt++;
 					System.out.print("up 같은돌: "+sCnt+" ");
 				}
+				
 				else if(board[checkPoint[0]][checkPoint[1]] == 0){
 					eCnt++;
 					System.out.print("up 빈칸: "+eCnt+" ");
@@ -50,17 +52,21 @@ public class DoubleThreeAlg {
 				else 
 					break;
 			}
+			
 			if(sCnt>4 || eCnt >2)
-				pointCheck = false;
+				pointCheck = false; 
 		} // 위로 같은 돌인지 체크
 
 		pointCheck = true;
 
-		if(eCnt>2)
+		
+		if(eCnt>2) 
 			eCnt = 1;
 		else if(eCnt!=0)
 			endBoard[0] = 0;
 
+		
+		
 		clonePoint(point, checkPoint);// 체크포인트 복사
 
 		while(pointCheck){
@@ -79,33 +85,43 @@ public class DoubleThreeAlg {
 				else 
 					break;
 			}
+		
 			if(sCnt > 4 || eCnt >2)
 				pointCheck = false;
+			
 		} // 아래로 같은 돌인지 체크
+		
 		//		clonePoint(point, checkPoint);// 체크포인트 복사
+		
+		
 		System.out.println("엔드보드" + endBoard[0]);
 
+		
 		if (sCnt == 3&&endBoard[0]==0){
 			threeCnt[0]++;
 			System.out.println("find");
+		
 		}
 		endBoard[0] = 0;
 
 	}
 
+	
 	public static boolean checkThreeUp(int[] point, int[] checkPoint) {
 
-		if(checkPoint[0] == 0){
-			endBoard[0] = 1;
+		if(checkPoint[0] == 0){ 
+			endBoard[0] = 1; // 마지막까지 확인했는지 표시해주는 배열
 			return false;
 		}
 			
 		for (int i = 0; i < 2; i++) {
 			checkPoint[i] += UP[i];
 		}
+		
 		return true;
 	}
 
+	
 	public static boolean checkThreeDown(int[] point, int[] checkPoint) {
 
 		if(checkPoint[0] == 18){
@@ -117,6 +133,7 @@ public class DoubleThreeAlg {
 		}
 		return true;
 	}
+	
 	
 	public static void checkThreeRightLeft(int[] point, int[] checkPoint, int[][] board) {
 		int sCnt = 1;
@@ -131,15 +148,16 @@ public class DoubleThreeAlg {
 			if(pointCheck){
 				if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]]) {
 					sCnt++;
-					System.out.print("up 같은돌: "+sCnt+" ");
+					System.out.print("right 같은돌: "+sCnt+" ");
 				}
 				else if(board[checkPoint[0]][checkPoint[1]] == 0){
 					eCnt++;
-					System.out.print("up 빈칸: "+eCnt+" ");
+					System.out.print("right 빈칸: "+eCnt+" ");
 				}
 				else 
 					break;
 			}
+			
 			if(sCnt>4 || eCnt >2)
 				pointCheck = false;
 		} // 좌우로 같은 돌인지 체크
@@ -151,6 +169,7 @@ public class DoubleThreeAlg {
 		else if(eCnt!=0)
 			endBoard[0] = 0;
 
+		
 		clonePoint(point, checkPoint);// 체크포인트 복사
 
 		while(pointCheck){
@@ -160,11 +179,11 @@ public class DoubleThreeAlg {
 			if(pointCheck){
 				if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]]) {
 					sCnt++;
-					System.out.print("down 같은돌: "+sCnt+" ");
+					System.out.print("left 같은돌: "+sCnt+" ");
 				}
 				else if(board[checkPoint[0]][checkPoint[1]] == 0){
 					eCnt++;
-					System.out.print("down 빈칸: "+eCnt+" ");
+					System.out.print("left 빈칸: "+eCnt+" ");
 				}
 				else 
 					break;
@@ -172,9 +191,10 @@ public class DoubleThreeAlg {
 			if(sCnt > 4 || eCnt >2)
 				pointCheck = false;
 		} // 좌우로 같은 돌인지 체크
+		
 		System.out.println("엔드보드" + endBoard[0]);
 
-		if (sCnt == 3&&endBoard[0]==0){
+		if (sCnt == 3 && endBoard[0]==0){
 			threeCnt[0]++;
 			System.out.println("find");
 		}
@@ -182,6 +202,7 @@ public class DoubleThreeAlg {
 
 	}
 
+	
 	public static boolean checkThreeRight(int[] point, int[] checkPoint) {
 
 		if(checkPoint[1] == 18){
@@ -207,6 +228,7 @@ public class DoubleThreeAlg {
 		return true;
 	}
 	
+	
 	public static void checkThreeDiagonalL(int[] point, int[] checkPoint, int[][] board) {
 		int sCnt = 1;
 		int eCnt = 0;
@@ -220,11 +242,11 @@ public class DoubleThreeAlg {
 			if(pointCheck){
 				if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]]) {
 					sCnt++;
-					System.out.print("up 같은돌: "+sCnt+" ");
+					System.out.print("rightdown 같은돌: "+sCnt+" ");
 				}
 				else if(board[checkPoint[0]][checkPoint[1]] == 0){
 					eCnt++;
-					System.out.print("up 빈칸: "+eCnt+" ");
+					System.out.print("rightdown 빈칸: "+eCnt+" ");
 				}
 				else 
 					break;
@@ -249,11 +271,11 @@ public class DoubleThreeAlg {
 			if(pointCheck){
 				if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]]) {
 					sCnt++;
-					System.out.print("down 같은돌: "+sCnt+" ");
+					System.out.print("leftup 같은돌: "+sCnt+" ");
 				}
 				else if(board[checkPoint[0]][checkPoint[1]] == 0){
 					eCnt++;
-					System.out.print("down 빈칸: "+eCnt+" ");
+					System.out.print("leftup 빈칸: "+eCnt+" ");
 				}
 				else 
 					break;
@@ -284,6 +306,7 @@ public class DoubleThreeAlg {
 		return true;
 	}
 
+	
 	public static boolean checkThreeLeftUp(int[] point, int[] checkPoint) {
 
 		if(checkPoint[0] == 0||checkPoint[1] == 0){
@@ -309,11 +332,11 @@ public class DoubleThreeAlg {
 			if(pointCheck){
 				if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]]) {
 					sCnt++;
-					System.out.print("up 같은돌: "+sCnt+" ");
+					System.out.print("rightup 같은돌: "+sCnt+" ");
 				}
 				else if(board[checkPoint[0]][checkPoint[1]] == 0){
 					eCnt++;
-					System.out.print("up 빈칸: "+eCnt+" ");
+					System.out.print("rightup 빈칸: "+eCnt+" ");
 				}
 				else 
 					break;
@@ -338,11 +361,11 @@ public class DoubleThreeAlg {
 			if(pointCheck){
 				if (board[checkPoint[0]][checkPoint[1]] == board[point[0]][point[1]]) {
 					sCnt++;
-					System.out.print("down 같은돌: "+sCnt+" ");
+					System.out.print("leftDown 같은돌: "+sCnt+" ");
 				}
 				else if(board[checkPoint[0]][checkPoint[1]] == 0){
 					eCnt++;
-					System.out.print("down 빈칸: "+eCnt+" ");
+					System.out.print("leftDown 빈칸: "+eCnt+" ");
 				}
 				else 
 					break;

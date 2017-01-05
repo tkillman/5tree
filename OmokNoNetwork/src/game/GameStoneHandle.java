@@ -11,6 +11,7 @@ public class GameStoneHandle {
 	static int[] turnCnt = { 1 };// 턴 카운트	
 
 	public static void printGame(int[][] arr) { // 바둑판 출력
+		
 		for (int i = 0; i < 19; i++) {
 			for (int j = 0; j < 19; j++) {
 				System.out.print(arr[i][j] + " ");
@@ -26,11 +27,13 @@ public class GameStoneHandle {
 	public static int stone(int[] point, int[][] board, int[] cnt) { // 좌표를입력받아돌을 놓아주는메소드
 
 		
-		if(isCheck(point, board)== 0 ){
-				if (turn(cnt) == 2){
+		if(isCheck(point, board)== 0 ){ //초기에 돌이 놓여있지 않은 상태라면 
+				if (turn(cnt) == 2){ // 흑 차례
+					
 					board[point[0]][point[1]] = 1;
 				}
-				else if (turn(cnt) == 1){
+				else if (turn(cnt) == 1){ // 백 차례
+					
 					board[point[0]][point[1]] = 2;
 				}
 				
